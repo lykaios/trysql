@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  dept: MyString
+  cnum: 1
+  id: 1
+  desc: MyString
+
+two:
+  dept: MyString
+  cnum: 1
+  id: 1
+  desc: MyString
