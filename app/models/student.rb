@@ -1,4 +1,4 @@
 class Student < ActiveRecord::Base
   validates :name, :presence => true
-  validates :id, :presence => true , :uniqueness => true
+  validates :id,  :uniqueness => true
 end
