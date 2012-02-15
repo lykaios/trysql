@@ -1,13 +1,15 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
+  id: 1
   dept: MyString
   cnum: 1
-  id: 1
+  title: MyString
   desc: MyString
 
 two:
+  id: 1
   dept: MyString
   cnum: 1
-  id: 1
+  title: MyString
   desc: MyString

@@ -2,9 +2,10 @@
 
 <table>
   <tr>
+    <th>Id</th>
     <th>Dept</th>
     <th>Cnum</th>
-    <th>Id</th>
+    <th>Title</th>
     <th>Desc</th>
     <th></th>
     <th></th>
@@ -13,9 +14,10 @@
 
 <% @courses.each do |course| %>
   <tr>
+    <td><%= course.id %></td>
     <td><%= course.dept %></td>
     <td><%= course.cnum %></td>
-    <td><%= course.id %></td>
+    <td><%= course.title %></td>
     <td><%= course.desc %></td>
     <td><%= link_to 'Show', course %></td>
     <td><%= link_to 'Edit', edit_course_path(course) %></td>
