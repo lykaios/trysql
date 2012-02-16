@@ -1,0 +1,10 @@
+<h2>SQL prompt</h2>
+<!-- Method is http action -->
+
+<%= form_tag(sqlcons_fetchquery_path, :method => "get") do %>
+  <%= label_tag(:q, "Query") %>
+  <%= text_field_tag(:q) %>
+  <%= submit_tag("submit") %>
+<% end %>
+
+

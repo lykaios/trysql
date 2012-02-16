@@ -4,6 +4,9 @@ Trysql::Application.routes.draw do
   resources :teachers
 
   resources :students
+  
+  match "/sqlcons/fetchquery" => "sqlcons#fetchquery"
+  resources :sqlcons
 
   get "home/index"
   root :to => "home#index"
