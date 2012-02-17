@@ -1,10 +1,13 @@
 <h2>SQL prompt</h2>
 <!-- Method is http action -->
-
+<p>Type in a query to the database below. </p>
+ 
 <%= form_tag(sqlcons_fetchquery_path, :method => "get") do %>
   <%= label_tag(:q, "Query") %>
   <%= text_field_tag(:q) %>
   <%= submit_tag("submit") %>
 <% end %>
 
+
+<p>results will be down here </p>
 
