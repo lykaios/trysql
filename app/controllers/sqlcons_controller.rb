@@ -9,20 +9,21 @@ class SqlconsController < ApplicationController
     end
   end
 
-  #Prints the query back out to page
+  #Gets query from input
   def fetchquery
     
     qstring = params[:q]
-    render :text => qstring
-=begin    
-    @course = Course.find_by_sql(qstring)
-
-    respond_to do |format|
-     Course.format.html # show.html.erb
-      Course.format.json { render json: @course }
-    end
-=end
-
+    #render :text => qstring
+	@qresults = ActiveRecord::Base.connection.execute(qstring)
   end
+
+  #Formats onto page
+  def show
+	respond_to do |format|
+	  format.html # show.html.erb
+	  format.json { render json: @qresults }
+	end
+end
+
     
 end
