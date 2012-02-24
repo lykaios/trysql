@@ -1,17 +1,30 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-<%= puts @qstring %>
 
-<%= @qresults.fields %>
-<br></br>
-<%= 
-  @qresults.each do |row|
-	puts row
-	puts "\n"
-  end
-%>
-
-<%= debug @qresults.methods	%>
+  <!--Prints out header row of table-->
+  <table border = "1">
+	<% qfields = @qresults.fields%>
+	<tr>
+	<% qfields.each do |headrow| %>
+	  <th>
+	  <%= headrow.upcase %>
+	  </th>
+	<%end%>
+	</tr>
+  <!--Prints out rows of table-->
+  <% @qresults.each do |row| %>
+		<tr>
+		<%row.each do |col|%>
+		  <td>
+		  <%= col%>
+		  </td>
+		  <%end%>
+		</tr>
+		<%end %>
+	<br />
+	</table>
 </p>
-<%= link_to 'Back', students_path %>
+<%= link_to 'Back', sqlcons_path %>
+
+<!-- debug @qresults.methods	-->
