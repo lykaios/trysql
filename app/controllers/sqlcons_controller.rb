@@ -2,7 +2,11 @@ class SqlconsController < ApplicationController
   # GET /sqlcons
   # GET /sqlcons.json
   def index
-    respond_to do |format|
+	#define session variables to load correct tutorial views
+	session[:tutch] = 1
+    session[:tutsec] = 0 
+	
+	respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @sqlcons }
     end
@@ -14,6 +18,8 @@ class SqlconsController < ApplicationController
     @qstring = params[:q]
     #render :text => qstring
 	@qresults = ActiveRecord::Base.connection.execute(@qstring)
+    session[:tutsec] += 1 
+	
 	render :show
   end
 
