@@ -1,30 +1,27 @@
 <p id="notice"><%= notice %></p>
-
+<%= render :file => "/home/nate/public/trysql/app/views/sqlcons/" + "tut1-1.erb"%>
 <p>
-
+  <!--Prints out query-->
+  <%= "Query:" + @qstring %>
   <!--Prints out header row of table-->
   <table border = "1">
 	<% qfields = @qresults.fields%>
 	<tr>
 	<% qfields.each do |headrow| %>
-	  <th>
-	  <%= headrow.upcase %>
-	  </th>
+	  <th><%= headrow.upcase %></th>
 	<%end%>
 	</tr>
   <!--Prints out rows of table-->
   <% @qresults.each do |row| %>
 		<tr>
 		<%row.each do |col|%>
-		  <td>
-		  <%= col%>
-		  </td>
+		  <td><%= col %></td>
 		  <%end%>
 		</tr>
 		<%end %>
-	<br />
-	</table>
+  </table>
+  <br />
 </p>
 <%= link_to 'Back', sqlcons_path %>
 
-<!-- debug @qresults.methods	-->
+<%# debug @qresults.methods	%>
