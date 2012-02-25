@@ -1,5 +1,9 @@
 <p id="notice"><%= notice %></p>
-<%= render :file => "/home/nate/public/trysql/app/views/sqlcons/" + "tut1-1.erb"%>
+
+
+<%# Prints to screen the current tutorial view %>
+<% fname = "/home/nate/public/trysql/app/views/sqlcons/" + "tut1-1.html" %>
+<%= render :file => fname%>
 <p>
   <!--Prints out query-->
   <%= "Query:" + @qstring %>
