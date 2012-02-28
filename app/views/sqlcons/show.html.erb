@@ -1,27 +1,25 @@
 <p id="notice"><%= notice %></p>
 
-
-<%# Prints to screen the current tutorial view %>
-
+<!--Prints to screen the current tutorial view -->
 <% tutname = "tut" + session[:tutch].to_s + "-" + session[:tutsec].to_s + ".html" %>
 <% fname = "/home/nate/public/trysql/app/views/sqlcons/tutorials/" + tutname %>
 <%= render :file => fname%>
 
 <p>
-
   <!--Text area for next query-->
   <%= form_tag(sqlcons_fetchquery_path, :method => "get") do %>
   <%= text_area_tag(:q,  nil,:size=>"30x6") %>
-  <%= submit_tag("submit", :onclick=>"this") %>
+  <%= submit_tag("query", :onclick=>"this") %>
   <% end %>
 
-  <%= submit_tag("reset", :onclick=>resetlesson) %>  
 
+  <br /> 
   <!--Prints out query-->
   <code><%= "Query:" + @qstring %></code>
   
   <!--Prints out header row of table-->
   <table border = "1">
+	
 	<% qfields = @qresults.fields%>
 	<tr>
 	<% qfields.each do |headrow| %>
@@ -39,7 +37,8 @@
   </table>
   <br />
   <%= submit_tag("next", :onclick=>incsection) %> 
-
+  <%= submit_tag("reset", :onclick=>resetlesson) %>  
+  <b>Section<%= session[:tutsec] %></b>
 </p>
 
 <%= link_to 'Back', sqlcons_path %>
