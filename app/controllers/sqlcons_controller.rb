@@ -4,7 +4,7 @@ class SqlconsController < ApplicationController
   def index
 	#define session variables to load correct tutorial views
 	session[:tutch] = 1
-    session[:tutsec] = 0 
+    session[:tutsec] = 1  
 	
 	respond_to do |format|
       format.html # index.html.erb
@@ -18,9 +18,10 @@ class SqlconsController < ApplicationController
     @qstring = params[:q]
     #render :text => qstring
 	@qresults = ActiveRecord::Base.connection.execute(@qstring)
-    session[:tutsec] += 1 
+    #session[:tutsec] += 1 
 	
 	render :show
   end
+  
 
 end

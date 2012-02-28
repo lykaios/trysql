@@ -9,7 +9,7 @@
 
 <p>
   <!--Prints out query-->
-  <%= "Query:" + @qstring %>
+  <code><%= "Query:" + @qstring %></code>
   <!--Prints out header row of table-->
   <table border = "1">
 	<% qfields = @qresults.fields%>
@@ -28,6 +28,8 @@
 		<%end %>
   </table>
   <br />
+  <%= submit_tag("next", :onclick=>incsection) %> 
+
 </p>
 
 <%= link_to 'Back', sqlcons_path %>

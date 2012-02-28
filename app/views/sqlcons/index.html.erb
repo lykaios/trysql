@@ -1,12 +1,11 @@
 <h2>SQL prompt</h2>
 <!-- Method is http action -->
-<p>Type in a query to the database below. </p>
+<p>Type in a query to the database below: </p>
  
-<%= form_tag(sqlcons_fetchquery_path, :method => "get") do %>
-  <%= text_area_tag(:q) %>
-  <%= submit_tag("submit") %>
-<% end %>
+  <%= form_tag(sqlcons_fetchquery_path, :method => "get") do %>
+  <%= text_area_tag(:q,  "select * from courses",:size=>"30x6") %>
+  <%= submit_tag("submit", :onclick=>"this") %>
+  <% end %>
 
-
-<p>results will be down here </p>
+<%= submit_tag("reset", :onclick=>resetlesson) %>  
 
