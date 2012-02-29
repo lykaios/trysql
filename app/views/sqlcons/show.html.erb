@@ -8,14 +8,13 @@
 <p>
   <!--Text area for next query-->
   <%= form_tag(sqlcons_fetchquery_path, :method => "get") do %>
-  <%= text_area_tag(:q,  nil,:size=>"30x6") %>
+  <%= text_area_tag(:q, @qstring,:size=>"30x6") %>
+  <br />
   <%= submit_tag("query", :onclick=>"this") %>
+  <%= submit_tag("nextsec", :onclick=>"this", :name=> 1 ) %>
+  <%= submit_tag("nextch", :onclick=>"this", :name=> 1 ) %>
   <% end %>
-
-
   <br /> 
-  <!--Prints out query-->
-  <code><%= "Query:" + @qstring %></code>
   
   <!--Prints out header row of table-->
   <table border = "1">
@@ -36,11 +35,7 @@
 		<%end %>
   </table>
   <br />
-  <%= submit_tag("next", :onclick=>incsection) %> 
-  <%= submit_tag("reset", :onclick=>resetlesson) %>  
-  <b>Section<%= session[:tutsec] %></b>
 </p>
-
 <%= link_to 'Back', sqlcons_path %>
 
 <%# debug @qresults.methods	%>
