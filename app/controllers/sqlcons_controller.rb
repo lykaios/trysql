@@ -19,16 +19,14 @@ class SqlconsController < ApplicationController
     @qstring = params[:q]
 	@qresults = ActiveRecord::Base.connection.execute(@qstring)
     
-	session[:tutsec] += 1
-	if params[:nextsec].to_i == 1
+	#Checks to see if user desired increment
+	  #Would like to change the value of those params.
+	if params[:nextsec] == "nextsec" &&  session[:tutsec] < session[:maxsec]
 	  session[:tutsec] += 1
-	# if session[:tutsec] < session[:maxsec]
-	#	session[:tutsec] += 1 
-	#  end
-	#elsif params[:nextch] == "1"
-	#  if session[:tutch] < session[:maxch]
-	#	session[:tutch] += 1 
-	#  end
+	elsif params[:nextch] == "nextch" && session[:tutch] < session[:maxch]
+	  session[:tutch] += 1
+	  session[:tutsec] = 1
+	else
 	end
 	render :show
   end
