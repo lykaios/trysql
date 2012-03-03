@@ -4,13 +4,13 @@
 <% tutname = "tut" + session[:tutch].to_s + "-" + session[:tutsec].to_s + ".html" %>
 <% fname = "/home/nate/public/trysql/app/views/sqlcons/tutorials/" + tutname %>
 <%= render :file => fname%>
-
+<!-- We can render multiple files. Possibly include header/side pane to say "play away" after sucessful query-->
 <p>
   <!--Text area for next query-->
   <%= form_tag(sqlcons_fetchquery_path, :method => "get") do %>
   <%= text_area_tag(:q, @qstring,:size=>"30x6") %>
   <br />
-  <%= submit_tag("query", :onclick=>"this") %>
+  <%= submit_tag("querydb", :onclick=>"this") %>
   <%= submit_tag("nextsec", :onclick=>"this", :name=> "nextsec" ) %>
   <%= submit_tag("nextch", :onclick=>"this", :name=> "nextch" ) %>
   <% end %>

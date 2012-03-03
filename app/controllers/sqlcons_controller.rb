@@ -5,7 +5,7 @@ class SqlconsController < ApplicationController
 	#define session variables to load correct tutorial views
 	session[:tutch] = 1
     session[:tutsec] = 1  
-	session[:maxsec] = 3	
+	session[:maxsec] = 7	
 	session[:maxch] = 2	
 	respond_to do |format|
       format.html # index.html.erb
