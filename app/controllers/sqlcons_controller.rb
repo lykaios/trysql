@@ -15,10 +15,16 @@ class SqlconsController < ApplicationController
 
   #Gets query from input
   def fetchquery
-    
     @qstring = params[:q]
 	@qresults = ActiveRecord::Base.connection.execute(@qstring)
-    
+	@qmodel = Sqlcons.new(:id => 1, :qtext=> @qstring)
+	
+	if @qmodel.valid?
+	  session[:qcheck] = 'good'
+	else
+	  session[:qcheck] = 'bad'
+	end
+	#end
 	#Checks to see if user desired increment
 	  #Would like to change the value of those params.
 	if params[:nextsec] == "nextsec" &&  session[:tutsec] < session[:maxsec]
