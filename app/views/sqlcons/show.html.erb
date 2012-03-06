@@ -1,6 +1,7 @@
 <p id="notice"><%= notice %></p>
-<b> Regexp valid = <%= session[:qcheck] %></b>
-
+<b> Regexp = <%= session[:qcheck] %></b>
+<br / > Regtext = <%= @qmodel.regtext.to_s%>
+<br / > Qtext = <%= @qmodel.qtext.to_s%>
 <!--Prints to screen the current tutorial view -->
 <% tutname = "tut" + session[:tutch].to_s + "-" + session[:tutsec].to_s + ".html" %>
 <% fname = "/home/nate/public/trysql/app/views/sqlcons/tutorials/" + tutname %>

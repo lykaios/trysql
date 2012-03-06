@@ -17,9 +17,9 @@ class SqlconsController < ApplicationController
   def fetchquery
     @qstring = params[:q]
 	@qresults = ActiveRecord::Base.connection.execute(@qstring)
-	@qmodel = Sqlcons.new(:id => 1, :qtext=> @qstring)
-	
-	if @qmodel.valid?
+	@qmodel = Sqlcons.new(:id => 1, :qtext=> @qstring, :regtext => "select")
+	session[:pstr] = @qmodel.checkq	
+	if @qmodel.checkq
 	  session[:qcheck] = 'good'
 	else
 	  session[:qcheck] = 'bad'
