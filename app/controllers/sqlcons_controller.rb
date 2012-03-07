@@ -16,15 +16,19 @@ class SqlconsController < ApplicationController
   #Gets query from input
   def fetchquery
     @qstring = params[:q]
+	#Pull back regexp for the specific lesson
+	secreg = Sqlcons.where(:ch => session[:tutch], :sec => session[:tutsec]).pluck(:regtext)
+	@qmodel = Sqlcons.new(:id => 1, :qtext=> @qstring, :regtext => secreg[0])
+
+	#Fetch query results
 	@qresults = ActiveRecord::Base.connection.execute(@qstring)
-	@qmodel = Sqlcons.new(:id => 1, :qtext=> @qstring, :regtext => "select")
-	session[:pstr] = @qmodel.checkq	
-	if @qmodel.checkq
+
+	#Validate whether the query is valid
+	if @qmodel.checkquery
 	  session[:qcheck] = 'good'
 	else
 	  session[:qcheck] = 'bad'
 	end
-	#end
 	#Checks to see if user desired increment
 	  #Would like to change the value of those params.
 	if params[:nextsec] == "nextsec" &&  session[:tutsec] < session[:maxsec]
