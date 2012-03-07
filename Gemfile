@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 #For xml builder
-#gem 'rubygems'
-gem 'builder'
+#gem 'builder'
 
 gem 'rails', '3.2.1'
 #Javascript stuff
