@@ -2,9 +2,16 @@
 <b> Regexp = <%= session[:qcheck] %></b>
 <br / > Regtext = <%= @qmodel.regtext.to_s%>
 <br / > Qtext = <%= @qmodel.qtext.to_s%>
-<!--Prints to screen the current tutorial view -->
-<% tutname = "tut" + session[:tutch].to_s + "-" + session[:tutsec].to_s + ".html" %>
+<!-- Check if there was an error, if not, display tutorial view, else error page-->
+<% 
+  if session[:qcheck] == 'good'
+	tutname = "tut" + session[:tutch].to_s + "-" + session[:tutsec].to_s + ".html"
+  else
+	tutname = "qerror.html"
+  end
+%>
 <% fname = "/home/nate/public/trysql/app/views/sqlcons/tutorials/" + tutname %>
+<!--Prints to screen the current tutorial view -->
 <%= render :file => fname%>
 <!-- We can render multiple files. Possibly include header/side pane to say "play away" after sucessful query-->
 <p>
@@ -20,7 +27,6 @@
   
   <!--Prints out header row of table-->
   <table border = "1">
-	
 	<% qfields = @qresults.fields%>
 	<tr>
 	<% qfields.each do |headrow| %>

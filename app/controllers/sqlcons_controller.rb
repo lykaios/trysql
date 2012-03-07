@@ -16,6 +16,7 @@ class SqlconsController < ApplicationController
   #Gets query from input
   def fetchquery
     @qstring = params[:q]
+	@qstring = @qstring.downcase
 	#Pull back regexp for the specific lesson
 	secreg = Sqlcons.where(:ch => session[:tutch], :sec => session[:tutsec]).pluck(:regtext)
 	@qmodel = Sqlcons.new(:id => 1, :qtext=> @qstring, :regtext => secreg[0])
@@ -26,19 +27,20 @@ class SqlconsController < ApplicationController
 	  session[:qcheck] = 'good'
 	  #Fetch query results
 	  @qresults = ActiveRecord::Base.connection.execute(@qstring)
+	  #Checks to see if user desired increment
+		#Would like to change the value of those params.
+	  if params[:nextsec] == "nextsec" &&  session[:tutsec] < session[:maxsec]
+		session[:tutsec] += 1
+	  elsif params[:nextch] == "nextch" && session[:tutch] < session[:maxch]
+		session[:tutch] += 1
+		session[:tutsec] = 1
+	  else
+	  end
 	else
-	  #Default query result, clean this up
-	  @qresults = ActiveRecord::Base.connection.execute("select * from teachers")
+	  #Error msg as query, clean this up
+	  errquery = "select 'There was an error in your query, please try again' as errormsg from dual"
+	  @qresults = ActiveRecord::Base.connection.execute(errquery)
 	  session[:qcheck] = 'bad'
-	end
-	#Checks to see if user desired increment
-	  #Would like to change the value of those params.
-	if params[:nextsec] == "nextsec" &&  session[:tutsec] < session[:maxsec]
-	  session[:tutsec] += 1
-	elsif params[:nextch] == "nextch" && session[:tutch] < session[:maxch]
-	  session[:tutch] += 1
-	  session[:tutsec] = 1
-	else
 	end
 	render :show
   end
