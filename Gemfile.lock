@@ -106,7 +106,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  builder
   coffee-rails (~> 3.2.1)
   jquery-rails
   mysql2

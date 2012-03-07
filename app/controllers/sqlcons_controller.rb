@@ -20,13 +20,15 @@ class SqlconsController < ApplicationController
 	secreg = Sqlcons.where(:ch => session[:tutch], :sec => session[:tutsec]).pluck(:regtext)
 	@qmodel = Sqlcons.new(:id => 1, :qtext=> @qstring, :regtext => secreg[0])
 
-	#Fetch query results
-	@qresults = ActiveRecord::Base.connection.execute(@qstring)
 
 	#Validate whether the query is valid
 	if @qmodel.checkquery
 	  session[:qcheck] = 'good'
+	  #Fetch query results
+	  @qresults = ActiveRecord::Base.connection.execute(@qstring)
 	else
+	  #Default query result, clean this up
+	  @qresults = ActiveRecord::Base.connection.execute("select * from teachers")
 	  session[:qcheck] = 'bad'
 	end
 	#Checks to see if user desired increment
