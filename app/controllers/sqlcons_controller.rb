@@ -17,9 +17,15 @@ class SqlconsController < ApplicationController
   def fetchquery
     @qstring = params[:q]
 	@qstring = @qstring.downcase
+	#If they are querying for fun, make sure we match previous lesson's regexp
+	pluck_section = session[:tutsec]
+	if params[:nextsec] != 'nextsec'
+	  pluck_section = pluck_section - 1
+	end
+
 	#Pull back regexp for the specific lesson
-	secreg = Sqlcons.where(:ch => session[:tutch], :sec => session[:tutsec]).pluck(:regtext)
-	@qmodel = Sqlcons.new(:id => 1, :qtext=> @qstring, :regtext => secreg[0])
+	sectionregex = Sqlcons.where(:ch => session[:tutch], :sec => pluck_section).pluck(:regtext)
+	@qmodel = Sqlcons.new(:id => 1, :qtext=> @qstring, :regtext => sectionregex[0])
 
 
 	#Validate whether the query is valid
