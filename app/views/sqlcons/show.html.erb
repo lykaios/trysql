@@ -1,10 +1,10 @@
 <p id="notice"><%= notice %></p>
-<b> Regexp = <%= session[:qcheck] %></b>
+<b> Regexp = <%= @qvalid %></b>
 <br / > Regtext = <%= @qmodel.regtext.to_s%>
 <br / > Qtext = <%= @qmodel.qtext.to_s%>
 <!-- Check if there was an error, if not, display tutorial view, else error page-->
 <% 
-  if session[:qcheck] == 'good'
+  if @qvalid 
 	tutname = "tut" + session[:tutch].to_s + "-" + session[:tutsec].to_s + ".html"
   else
 	tutname = "qerror.html"
