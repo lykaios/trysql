@@ -36,34 +36,38 @@ class SqlconsController < ApplicationController
 	#Validate whether the query is valid
 	if @qmodel.checkquery
 	  @qvalid = true
-	  #Fetch query results, rescue from any mysql exceptions
-	  begin
-		@qresults = ActiveRecord::Base.connection.execute(@qstring)
-	  rescue
-		render :file => '/home/nate/public/trysql/app/views/sqlcons/tutorials/sqlerror.html' and return
-	  end
-	  
-	  #rescue_from(ActiveRecord::RecordNotFound) { |e| render :file => '/views/sqlcons/tutorials/qerror.html' }
-	  #Checks to see if user desired increment
-		#Would like to change the value of those params.
-	  if params[:nextsec] == "nextsec" &&  session[:tutsec] < session[:maxsec]
-		session[:tutsec] += 1
-	  elsif params[:nextch] == "nextch" && session[:tutch] < session[:maxch]
-		session[:tutch] += 1
-		session[:tutsec] = 1
-	  end
+	  #Call method to execute query
+	  execquery	
 	else
+	  @qvalid = false
 	  #Error msg as query, clean this up
 	  errquery = "select 'There was an error in your query, please try again' as errormsg from dual"
 	  @qresults = ActiveRecord::Base.connection.execute(errquery)
-	  @qvalid = false
 	end
-	render :show
 
+	#implement a new method to calculate view display
+	if @qvalid
+	  render :show and return
+	end
   end
-	protected
-	def bad_record 
-	  render :file => '/views/sqlcons/tutorials/qerror.html'
-	end
 
+  def execquery
+	@qvalid = true
+	#Fetch query results, rescue from any mysql exceptions
+	begin
+	  @qresults = ActiveRecord::Base.connection.execute(@qstring)
+	rescue
+	  @qvalid = false
+	  render :file => '/home/nate/public/trysql/app/views/sqlcons/tutorials/sqlerror.html' and return
+	end
+	
+	#Checks to see if user desired increment
+	  #Would like to change the value of those params.
+	if params[:nextsec] == "nextsec" &&  session[:tutsec] < session[:maxsec]
+	  session[:tutsec] += 1
+	elsif params[:nextch] == "nextch" && session[:tutch] < session[:maxch]
+	  session[:tutch] += 1
+	  session[:tutsec] = 1
+	end
+  end
 end

@@ -2,7 +2,6 @@
 <b> Regexp = <%= @qvalid %></b>
 <br / > Regtext = <%= @qmodel.regtext.to_s%>
 <br / > Qtext = <%= @qmodel.qtext.to_s%>
-<!-- Check if there was an error, if not, display tutorial view, else error page-->
 <% 
   if @qvalid 
 	tutname = "tut" + session[:tutch].to_s + "-" + session[:tutsec].to_s + ".html"
