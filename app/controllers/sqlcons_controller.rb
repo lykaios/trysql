@@ -16,7 +16,8 @@ class SqlconsController < ApplicationController
     end
   end
 
-  #Gets query from input
+  #Returns users query into controller from view
+  #@qstring = the query passed through params
   def fetchquery
     # qvarname means it has to do with the incoming query. 
 	
@@ -35,30 +36,29 @@ class SqlconsController < ApplicationController
 
 	#Validate whether the query is valid
 	if @qmodel.checkquery
-	  @qvalid = true
 	  #Call method to execute query
 	  execquery	
 	else
-	  @qvalid = false
+	  @qstatus = 2
 	  #Error msg as query, clean this up
 	  errquery = "select 'There was an error in your query, please try again' as errormsg from dual"
 	  @qresults = ActiveRecord::Base.connection.execute(errquery)
 	end
 
 	#implement a new method to calculate view display
-	if @qvalid
-	  render :show and return
-	end
+	pickdisplay  
+	render :show 
   end
 
+  #Executes a given query against the chosen database
+  #Increments session variables if users desire to move on
   def execquery
-	@qvalid = true
+	@qstatus = 0
 	#Fetch query results, rescue from any mysql exceptions
 	begin
 	  @qresults = ActiveRecord::Base.connection.execute(@qstring)
 	rescue
-	  @qvalid = false
-	  render :file => '/home/nate/public/trysql/app/views/sqlcons/tutorials/sqlerror.html' and return
+	  @qstatus = 1
 	end
 	
 	#Checks to see if user desired increment
@@ -70,4 +70,20 @@ class SqlconsController < ApplicationController
 	  session[:tutsec] = 1
 	end
   end
+
+
+  #Based on current state of @qstatus, determines whether to 
+  #display next stage in tutorial, or a specific error page
+  def pickdisplay
+	if @qstatus == 0 
+	  tutname = "tut" + session[:tutch].to_s + "-" + session[:tutsec].to_s + ".html"
+	elsif @qstatus == 1
+	  tutname = "sqlerror.html"	
+	else
+	  tutname = "qerror.html"
+	end
+
+	@file_name = "/home/nate/public/trysql/app/views/sqlcons/tutorials/" + tutname 
+  end
+
 end

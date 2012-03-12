@@ -1,18 +1,9 @@
 <p id="notice"><%= notice %></p>
-<b> Regexp = <%= @qvalid %></b>
+<b> Regexp = <%= @qstatus %></b>
 <br / > Regtext = <%= @qmodel.regtext.to_s%>
 <br / > Qtext = <%= @qmodel.qtext.to_s%>
-<% 
-  if @qvalid 
-	tutname = "tut" + session[:tutch].to_s + "-" + session[:tutsec].to_s + ".html"
-  else
-	tutname = "qerror.html"
-  end
-%>
-<% fname = "/home/nate/public/trysql/app/views/sqlcons/tutorials/" + tutname %>
-<!--Prints to screen the current tutorial view -->
-<%= render :file => fname%>
-<!-- We can render multiple files. Possibly include header/side pane to say "play away" after sucessful query-->
+<!--Prints to screen the current tutorial view or error message-->
+<%= render :file => @file_name%>
 <p>
   <!--Text area for next query-->
   <%= form_tag(sqlcons_fetchquery_path, :method => "get") do %>
