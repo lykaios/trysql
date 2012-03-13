@@ -52,10 +52,17 @@ class SqlconsController < ApplicationController
   #Increments session variables if users desire to move on
   def execquery
 	@qstatus = 0
+
 	#Fetch query results, rescue from any mysql exceptions
 	begin
 	  @qresults = ActiveRecord::Base.connection.execute(@qstring)
-	rescue
+	rescue Exception => e
+	  #use replace function to clean up error
+	  msg = e.message.gsub /'/, ''
+	  msg = msg.gsub /Mysql2::Error:/, ''
+	  errquery = "select '"+ msg + "' as errormsg"
+	  @qresults = ActiveRecord::Base.connection.execute(errquery)
+	  #sql syntax exception key
 	  @qstatus = 1
 	end
 	
@@ -73,10 +80,13 @@ class SqlconsController < ApplicationController
   #Based on current state of @qstatus, determines whether to 
   #display next stage in tutorial, or a specific error page
   def pickdisplay
+	#successful
 	if @qstatus == 0 
 	  tutname = "tut" + session[:tutch].to_s + "-" + session[:tutsec].to_s + ".html"
+	#mysqlerror
 	elsif @qstatus == 1
 	  tutname = "sqlerror.html"	
+	#not good query for lesson
 	else
 	  tutname = "qerror.html"
 	end
