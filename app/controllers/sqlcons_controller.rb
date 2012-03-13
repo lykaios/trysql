@@ -23,9 +23,6 @@ class SqlconsController < ApplicationController
 	@qstring = @qstring.downcase
 	#If they are querying for fun, make sure we match previous lesson's regexp
 	pluck_section = session[:tutsec]
-	#if params[:nextsec] != 'nextsec'
-	# pluck_section = pluck_section - 1
-	#end
 
 	#Pull back regexp for the specific lesson
 	sectionregex = Sqlcons.where(:ch => session[:tutch], :sec => pluck_section).pluck(:regtext)
@@ -38,12 +35,9 @@ class SqlconsController < ApplicationController
 	  execquery	
 	else
 	  @qstatus = 2
-	  #Error msg as query, clean this up
-	  errquery = "select 'There was an error in your query, please try again' as errormsg from dual"
-	  @qresults = ActiveRecord::Base.connection.execute(errquery)
 	end
 
-	#implement a new method to calculate view display
+	#call method determining which errors to display, if any
 	pickdisplay  
 	render :show 
   end
@@ -87,17 +81,19 @@ class SqlconsController < ApplicationController
   #display next stage in tutorial, or a specific error page
   def pickdisplay
 	#successful query or incrementing section
-	if @qstatus == 0 || @qstatus == 3 
-	  tutname = "tut" + session[:tutch].to_s + "-" + session[:tutsec].to_s + ".html"
+	tutname = "tut" + session[:tutch].to_s + "-" + session[:tutsec].to_s + ".html"
 	#mysqlerror
-	elsif @qstatus == 1
-	  tutname = "sqlerror.html"	
+	if @qstatus == 1
+	  errname = "sqlerror.html"	
 	#not good query for lesson
 	else
-	  tutname = "qerror.html"
+	  errname = "qerror.html"
 	end
-
-	@file_name = "/home/nate/public/trysql/app/views/sqlcons/tutorials/" + tutname 
+	#bool to determine views display
+	@waserror = @qstatus != 0 && @qstatus != 3 
+	path = "/home/nate/public/trysql/app/views/sqlcons/tutorials/"
+	@lesson_name = path + tutname 
+	@error_name = path + errname
   end
 
 end

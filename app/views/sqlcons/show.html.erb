@@ -3,7 +3,7 @@
 <br / > Regtext = <%= @qmodel.regtext.to_s if @qmodel%>
 <br / > Qtext = <%= @qmodel.qtext.to_s if @qmodel%>
 <!--Prints to screen the current tutorial view or error message-->
-<%= render :file => @file_name%>
+<%= render :file => @lesson_name%>
 <p>
   <!-- Text area for next query-->
   <%= form_tag(sqlcons_fetchquery_path, :method => "get") do %>
@@ -17,6 +17,7 @@
   <% end %>
   <br /> 
 
+<%= render :file => @error_name if @waserror%>
 <!--Prints out header row of table-->
   <% if @qresults %>
   <table border = "1">
