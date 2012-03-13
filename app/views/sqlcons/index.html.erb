@@ -1,15 +1,17 @@
 <h2>Welcome to TRYSQL!</h2>
-<p>
-Just by arriving at this page, you've begun your first step on the road to database mastery.  The goal of this website is to take you through some basic tutorials, giving you a general feel of how Structured Query Language works.  The scope of this tutorial is to familiarize you with the language and specifc methods of querying, if you need an overview of databasing, I recommend the following website [link here] 
-
-To start, let's write a simple select query against the database.  Try "select * from courses" below.
-</p>
-
-
-<!-- Method is http action -->
+  <p>
+  Just by arriving at this page, you've begun your first step on the road to database mastery.  The goal of this website is to take you through some basic tutorials, giving you a general feel of how Structured Query Language works.  The scope of this tutorial is to familiarize you with the language and specifc methods of querying, if you need an overview of databasing, I recommend the following website [link here] 
+  <br />
+  <br />
+	The tutorial will allow you to interact with a database by writing SQL statements to it.  Click the "querydb" button to submit your statement to the database.  The results (or an error message) will display back to your screen.  Once you are ready for the next lesson, simply hit the "Next Section" link.
+  <br />
+  <br />
+	To start, let's write a simple select query against the database.  Try "select * from courses" below.
+  </p>
  
   <!--Text area for next query-->
   <%= form_tag(sqlcons_fetchquery_path, :method => "get") do %>
   <%= text_area_tag(:q,  "select * from courses",:size=>"30x6") %>
-  <%= submit_tag("submit", :onclick=>"this") %>
+  <br />
+  <%= submit_tag("querydb", :onclick=>"this") %>
   <% end %>
