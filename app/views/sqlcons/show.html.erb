@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 <b> Query Status = <%= @qstatus %></b>
-<br / > Regtext = <%= @qmodel.regtext.to_s%>
-<br / > Qtext = <%= @qmodel.qtext.to_s%>
+<br / > Regtext = <%= @qmodel.regtext.to_s if @qmodel%>
+<br / > Qtext = <%= @qmodel.qtext.to_s if @qmodel%>
 <!--Prints to screen the current tutorial view or error message-->
 <%= render :file => @file_name%>
 <p>
@@ -10,12 +10,15 @@
   <%= text_area_tag(:q, @qstring,:size=>"30x6") %>
   <br />
   <%= submit_tag("querydb", :onclick=>"this") %>
-  <%= submit_tag("nextsec", :onclick=>"this", :name=> "nextsec" ) %>
-  <%= submit_tag("nextch", :onclick=>"this", :name=> "nextch" ) %>
+  <% end %>
+  <!-- if they submitted a valid query, allow them to move on to the next section -->
+  <% if @qstatus == 0%>
+	<b> <%= link_to( "Next Section", sqlcons_nextlesson_path) %> </b>
   <% end %>
   <br /> 
-  
-  <!--Prints out header row of table-->
+
+<!--Prints out header row of table-->
+  <% if @qresults %>
   <table border = "1">
 	<% qfields = @qresults.fields%>
 	<tr>
@@ -32,8 +35,8 @@
 		</tr>
 		<%end %>
   </table>
+  <% end %>
   <br />
 </p>
 <%= link_to 'Back', sqlcons_path %>
 
-<%# debug @qresults.methods	%>

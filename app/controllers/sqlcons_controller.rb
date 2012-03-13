@@ -23,9 +23,9 @@ class SqlconsController < ApplicationController
 	@qstring = @qstring.downcase
 	#If they are querying for fun, make sure we match previous lesson's regexp
 	pluck_section = session[:tutsec]
-	if params[:nextsec] != 'nextsec'
-	  pluck_section = pluck_section - 1
-	end
+	#if params[:nextsec] != 'nextsec'
+	# pluck_section = pluck_section - 1
+	#end
 
 	#Pull back regexp for the specific lesson
 	sectionregex = Sqlcons.where(:ch => session[:tutch], :sec => pluck_section).pluck(:regtext)
@@ -66,22 +66,28 @@ class SqlconsController < ApplicationController
 	  @qstatus = 1
 	end
 	
+  end
+
+  def nextlesson
 	#Checks to see if user desired increment
 	  #Would like to change the value of those params.
-	if params[:nextsec] == "nextsec" &&  session[:tutsec] < session[:maxsec]
+	if session[:tutsec] < session[:maxsec]
 	  session[:tutsec] += 1
 	elsif params[:nextch] == "nextch" && session[:tutch] < session[:maxch]
 	  session[:tutch] += 1
 	  session[:tutsec] = 1
 	end
+	@qstatus = 3 
+	@qresults = nil
+	pickdisplay
+	render :show
   end
-
-
+  
   #Based on current state of @qstatus, determines whether to 
   #display next stage in tutorial, or a specific error page
   def pickdisplay
-	#successful
-	if @qstatus == 0 
+	#successful query or incrementing section
+	if @qstatus == 0 || @qstatus == 3 
 	  tutname = "tut" + session[:tutch].to_s + "-" + session[:tutsec].to_s + ".html"
 	#mysqlerror
 	elsif @qstatus == 1

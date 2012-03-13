@@ -6,8 +6,10 @@ Trysql::Application.routes.draw do
   resources :students
   
   match "/sqlcons/fetchquery" => "sqlcons#fetchquery"
+  match "/sqlcons/nextlesson" => "sqlcons#nextlesson"
   resources :sqlcons
 
+  
   get "home/index"
   root :to => "home#index"
   # The priority is based upon order of creation:
