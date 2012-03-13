@@ -1,7 +1,6 @@
 class SqlconsController < ApplicationController
-	  #rescue_from ActiveRecord::RecordNotFound, :with => :bad_record
-	  rescue_from Mysql2::Error, :with => :bad_record
-  
+  #qvarname means it has to do with query
+
   # GET /sqlcons
   # GET /sqlcons.json
   def index
@@ -19,7 +18,6 @@ class SqlconsController < ApplicationController
   #Returns users query into controller from view
   #@qstring = the query passed through params
   def fetchquery
-    # qvarname means it has to do with the incoming query. 
 	
 	@qstring = params[:q]
 	@qstring = @qstring.downcase
