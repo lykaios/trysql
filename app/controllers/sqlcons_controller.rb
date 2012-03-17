@@ -19,13 +19,10 @@ class SqlconsController < ApplicationController
   #@qstring = the query passed through params
   def fetchquery
 	
-	@qstring = params[:q]
-	@qstring = @qstring.downcase
-	#If they are querying for fun, make sure we match previous lesson's regexp
-	pluck_section = session[:tutsec]
+	@qstring = params[:q].downcase
 
 	#Pull back regexp for the specific lesson
-	sectionregex = Sqlcons.where(:ch => session[:tutch], :sec => pluck_section).pluck(:regtext)
+	sectionregex = Sqlcons.where(:ch => session[:tutch], :sec => session[:tutsec]).pluck(:regtext)
 	@qmodel = Sqlcons.new(:id => 1, :qtext=> @qstring, :regtext => sectionregex[0])
 
 
@@ -43,13 +40,13 @@ class SqlconsController < ApplicationController
   end
 
   #Executes a given query against the chosen database
-  #Increments session variables if users desire to move on
   def execquery
 	@qstatus = 0
 
 	#Fetch query results, rescue from any mysql exceptions
 	begin
-	  @qresults = ActiveRecord::Base.connection.execute(@qstring)
+	  query = Dbq.new(:qtext=> @qstring)
+	  @qresults = query.execquery
 	rescue Exception => e
 	  #use replace function to clean up error
 	  msg = e.message.gsub /'/, ''

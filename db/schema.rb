@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120304203112) do
+ActiveRecord::Schema.define(:version => 20120316215730) do
 
   create_table "course_fcts", :force => true do |t|
     t.integer  "year"
@@ -28,6 +28,12 @@ ActiveRecord::Schema.define(:version => 20120304203112) do
     t.integer  "cnum"
     t.string   "title"
     t.string   "desc"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "dbqs", :force => true do |t|
+    t.string   "qtext"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
