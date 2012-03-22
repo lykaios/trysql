@@ -10,4 +10,6 @@ class Sqlcons < ActiveRecord::Base
 	#Check if regexp was valid for lesson, and not a sqlinject attempt	
 	return (qtext =~ reg && !(qtext =~ reg2)) 
   end
+
+
 end

@@ -10,4 +10,14 @@ class Dbq < ActiveRecord::Base
   def execquery
 	return connection.execute(qtext)
   end
+ 
+#Method is called when a new user is created.
+#Inserts all necessary default values into sandbox database to allow 
+#for querying
+
+  def db_insert(user_id)
+	#Have to specify connection in order to create in alternate database
+	connection.execute "INSERT INTO students (name,uid) values ('Nate2', #{user_id})"
+  end
+
 end

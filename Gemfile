@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 #For xml builder
 #gem 'builder'
 
+#For importing large amounts of data
+gem 'activerecord-import'
 gem 'rails', '3.2.1'
 #Javascript stuff
 gem 'therubyracer'

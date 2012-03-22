@@ -9,6 +9,9 @@ class SqlconsController < ApplicationController
     session[:tutsec] = 1  
 	session[:maxsec] = 7	
 	session[:maxch] = 2	
+	session[:uid] = 1 
+	#Insert data into database
+	data_import
 	respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @sqlcons }
@@ -91,6 +94,11 @@ class SqlconsController < ApplicationController
 	path = "/home/nate/public/trysql/app/views/sqlcons/tutorials/"
 	@lesson_name = path + tutname 
 	@error_name = path + errname
+  end
+
+  def data_import
+	user_insert = Dbq.new
+	user_insert.db_insert(session[:uid])
   end
 
 end
