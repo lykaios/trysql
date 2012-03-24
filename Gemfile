@@ -1,18 +1,13 @@
 source 'https://rubygems.org'
-#For xml builder
-#gem 'builder'
 
-#For importing large amounts of data
-gem 'activerecord-import'
 gem 'rails', '3.2.1'
+
 #Javascript stuff
 gem 'therubyracer'
-
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
-
-#gem 'sqlite3'
+#Authentication
+gem 'devise'
 #Database gem
+#gem 'sqlite3'
 gem 'mysql2'
 
 # Gems used only for assets and not required
