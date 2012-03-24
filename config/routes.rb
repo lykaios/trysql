@@ -1,4 +1,9 @@
 Trysql::Application.routes.draw do
+  devise_for :users
+
+  get "home/index"
+  root :to => "home#index"
+  
   resources :courses
 
   resources :teachers
@@ -8,10 +13,6 @@ Trysql::Application.routes.draw do
   match "/sqlcons/fetchquery" => "sqlcons#fetchquery"
   match "/sqlcons/nextlesson" => "sqlcons#nextlesson"
   resources :sqlcons
-
-  
-  get "home/index"
-  root :to => "home#index"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
