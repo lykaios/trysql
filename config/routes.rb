@@ -1,18 +1,8 @@
 Trysql::Application.routes.draw do
   devise_for :users
-  #Match special methods for users
-  #match "/users/" => "users"
-  #match "/users/show" => "users#show"
   
   get "home/index"
   root :to => "home#index"
-  #resources :users
-
-  resources :courses
-
-  resources :teachers
-
-  resources :students
   
   match "/sqlcons/fetchquery" => "sqlcons#fetchquery"
   match "/sqlcons/nextlesson" => "sqlcons#nextlesson"

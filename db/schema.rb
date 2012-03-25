@@ -11,26 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120324194519) do
-
-  create_table "course_fcts", :force => true do |t|
-    t.integer  "year"
-    t.string   "semester"
-    t.integer  "teacher_id"
-    t.integer  "course_id"
-    t.integer  "student_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  create_table "courses", :force => true do |t|
-    t.string   "dept"
-    t.integer  "cnum"
-    t.string   "title"
-    t.string   "desc"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
+ActiveRecord::Schema.define(:version => 20120325001150) do
 
   create_table "dbqs", :force => true do |t|
     t.string   "qtext"
@@ -43,18 +24,6 @@ ActiveRecord::Schema.define(:version => 20120324194519) do
     t.integer  "sec"
     t.text     "regtext"
     t.text     "qtext"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  create_table "students", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  create_table "teachers", :force => true do |t|
-    t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
