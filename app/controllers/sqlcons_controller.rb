@@ -47,22 +47,38 @@ class SqlconsController < ApplicationController
 
 	#Fetch query results, rescue from any mysql exceptions
 	begin
-	  
-	  uid = current_user.id.to_s
-	  #Because each row is associated with a specific user, need a method to only pull back their rows. 
-	  @qstring = @qstring.gsub /(where)/, 'where uid = ' + uid + ' and '
+	  @qstring = append_query(@qstring) 
 	  query = Dbq.new(:qtext=> @qstring)
 	  @qresults = query.execquery
 	rescue Exception => e
 	  #use replace function to clean up error
-	  msg = e.message.gsub /'/, ''
-	  msg = msg.gsub /Mysql2::Error:/, ''
+	  msg = e.message.gsub /'/, '|'
+	  msg = msg.gsub /Mysql2::Error:(.*?)(:)(.*)/, '\1'
 	  errquery = "select '"+ msg + "' as errormsg"
 	  @qresults = ActiveRecord::Base.connection.execute(errquery)
 	  #sql syntax exception key
 	  @qstatus = 1
 	end
 	
+  end
+
+  #Used to control which rows a user can see. (Associated with their user id)
+  def append_query(p_qstring)
+	  
+	  uid = current_user.id.to_s
+	  where_clause = 'where uid = ' + uid
+	  #We have to modify where we place 'where_clause' based on the incoming 
+	  # SQL statment. Otherwise we create a syntax error
+	  if p_qstring =~ /(where)/
+		ret_string = p_qstring.gsub /(where)/, where_clause + ' and '
+	  elsif p_qstring =~ /(group)/
+		ret_string = p_qstring.gsub /(group)/, where_clause + ' group '
+	  elsif p_qstring =~ /(order)/
+		ret_string = p_qstring.gsub /(order)/, where_clause + ' order '
+	  else
+		ret_string = p_qstring + " where uid = " + uid
+	  end
+	  return ret_string
   end
 
   def nextlesson
