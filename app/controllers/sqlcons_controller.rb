@@ -68,7 +68,7 @@ class SqlconsController < ApplicationController
 	  uid = current_user.id.to_s
 	  tabname = p_qstring[/(from)( )*([_a-z]+)( )*([_a-z]*)/, 3]
 	  tabalias = p_qstring[/(from)( )*([_a-z]+)( )*([_a-z]*)/, 5]
-	  if tabalias && tabalias != 'join'
+	  if tabalias.length > 0 && tabalias != 'join'
 		where_clause = ' where '+ tabalias + '.uid = ' + uid
 	  else	
 		where_clause = ' where '+ tabname + '.uid = ' + uid
