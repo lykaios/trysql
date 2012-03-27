@@ -52,7 +52,7 @@ class SqlconsController < ApplicationController
 	  @qresults = query.execquery
 	rescue Exception => e
 	  #use replace function to clean up error
-	  msg = e.message.gsub /'/, '|'
+	  msg = e.message.gsub /'/, ''
 	  msg = msg.gsub /Mysql2::Error:(.*?)(:)(.*)/, '\1'
 	  errquery = "select '"+ msg + "' as errormsg"
 	  @qresults = ActiveRecord::Base.connection.execute(errquery)
@@ -66,7 +66,13 @@ class SqlconsController < ApplicationController
   def append_query(p_qstring)
 	  
 	  uid = current_user.id.to_s
-	  where_clause = 'where uid = ' + uid
+	  tabname = p_qstring[/(from)( )*([_a-z]+)( )*([_a-z]*)/, 3]
+	  tabalias = p_qstring[/(from)( )*([_a-z]+)( )*([_a-z]*)/, 5]
+	  if tabalias && tabalias != 'join'
+		where_clause = ' where '+ tabalias + '.uid = ' + uid
+	  else	
+		where_clause = ' where '+ tabname + '.uid = ' + uid
+	  end
 	  #We have to modify where we place 'where_clause' based on the incoming 
 	  # SQL statment. Otherwise we create a syntax error
 	  if p_qstring =~ /(where)/
@@ -76,7 +82,7 @@ class SqlconsController < ApplicationController
 	  elsif p_qstring =~ /(order)/
 		ret_string = p_qstring.gsub /(order)/, where_clause + ' order '
 	  else
-		ret_string = p_qstring + " where uid = " + uid
+		ret_string = p_qstring + where_clause 
 	  end
 	  return ret_string
   end
