@@ -11,7 +11,6 @@ class SqlconsController < ApplicationController
 	session[:maxch] = 2	
 	session[:uid] = 1 
 	#Insert data into database
-	data_import
 	respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @sqlcons }
@@ -21,9 +20,9 @@ class SqlconsController < ApplicationController
   #Returns users query into controller from view
   #@qstring = the query passed through params
   def fetchquery
-	
-	@qstring = params[:q].downcase
-
+	#Save initial query so user doesn't see uid regulation	
+	@qstring_init = params[:q].downcase 
+	@qstring = @qstring_init
 	#Pull back regexp for the specific lesson
 	sectionregex = Sqlcons.where(:ch => session[:tutch], :sec => session[:tutsec]).pluck(:regtext)
 	@qmodel = Sqlcons.new(:id => 1, :qtext=> @qstring, :regtext => sectionregex[0])
@@ -48,6 +47,10 @@ class SqlconsController < ApplicationController
 
 	#Fetch query results, rescue from any mysql exceptions
 	begin
+	  
+	  uid = current_user.id.to_s
+	  #Because each row is associated with a specific user, need a method to only pull back their rows. 
+	  @qstring = @qstring.gsub /(where)/, 'where uid = ' + uid + ' and '
 	  query = Dbq.new(:qtext=> @qstring)
 	  @qresults = query.execquery
 	rescue Exception => e
@@ -96,9 +99,5 @@ class SqlconsController < ApplicationController
 	@error_name = path + errname
   end
 
-  def data_import
-	user_insert = Dbq.new
-	user_insert.db_insert(session[:uid])
-  end
 
 end
