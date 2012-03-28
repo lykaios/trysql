@@ -41,6 +41,8 @@ class SqlconsController < ApplicationController
 	render :show 
   end
 
+  # TODO: Add 'private' statement here to protect any method below if they don't have a corresponding view
+
   #Executes a given query against the chosen database
   def execquery
 	@qstatus = 0
@@ -87,6 +89,7 @@ class SqlconsController < ApplicationController
 	  return ret_string
   end
 
+  # TODO: Move this method to right below 'fetchquery' 
   def nextlesson
 	#Checks to see if user desired increment
 	  #Would like to change the value of those params.
