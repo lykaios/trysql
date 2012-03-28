@@ -2,10 +2,10 @@
 use trysql_data; 
 
 /*Drop tables, or later DB? */
-drop table courses;
-drop table teachers;
-drop table students;
-drop table course_fcts;
+drop table if exists courses;
+drop table if exists teachers;
+drop table if exists students;
+drop table if exists course_fcts;
 
 /*Create tables*/
 CREATE TABLE courses (id int, dept varchar(255), cnum int, title varchar(100), cdesc varchar(255), uid int, PRIMARY KEY (id, uid));
