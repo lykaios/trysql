@@ -68,10 +68,10 @@ class SqlconsController < ApplicationController
 	  uid = current_user.id.to_s
 	  tabname = p_qstring[/(from)( )*([_a-z]+)( )*([_a-z]*)/, 3]
 	  tabalias = p_qstring[/(from)( )*([_a-z]+)( )*([_a-z]*)/, 5]
-	  if tabalias.length > 0 && !(tabalias =~ /(where|join|group|order)/) 
-		where_clause = ' where '+ tabalias + '.uid = ' + uid
-	  else	
+	  if (tabalias == nil)  || (tabalias =~ /(where|join|group|order)/) 
 		where_clause = ' where '+ tabname + '.uid = ' + uid
+	  else	
+		where_clause = ' where '+ tabalias + '.uid = ' + uid
 	  end
 	  #We have to modify where we place 'where_clause' based on the incoming 
 	  # SQL statment. Otherwise we create a syntax error
