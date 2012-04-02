@@ -7,9 +7,9 @@
 
 #Sqlcons = the table holding regexp for a lesson
 Sqlcons.create(ch: 1,sec:  1,regtext: '(select)(.*?)');
-Sqlcons.create(ch: 1, sec: 2, regtext: '(select)(.*?)(students where)');
+Sqlcons.create(ch: 1, sec: 2, regtext: '(select)(.*?)(students)(.*?)(where)');
 Sqlcons.create(ch: 1, sec: 3, regtext: '(select)(.*?)(where)(.*?)(cnum=|cnum = )');
-Sqlcons.create(ch: 1, sec: 4, regtext: '(select)(.*?)(students)( )+(where)(.*?)(like)');
+Sqlcons.create(ch: 1, sec: 4, regtext: '(select)(.*?)(students)(.*?)(where)(.*?)(like)');
 Sqlcons.create(ch: 1, sec: 5, regtext: '(select)(.*?)(teachers)(.*?)(where)(.*?)(like)');
 Sqlcons.create(ch: 1, sec: 6, regtext: '(select)(.*?)(courses)(.*?)(order)');
 Sqlcons.create(ch: 1, sec: 7, regtext: '(select)(.*?)(courses)(.*?)(order)(.*?)([0-5])+');
