@@ -56,7 +56,8 @@ class SqlconsController < ApplicationController
   	render :show
   end
 
-  # TODO: Add 'private' statement here to protect any method below if they don't have a corresponding view
+  #Define methods private to controller (all listed below)
+  private
 
   #Executes a given query against the chosen database
   def execquery
