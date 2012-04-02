@@ -41,12 +41,15 @@ class SqlconsController < ApplicationController
   	render :show 
   end
   
+  #Increments session parameters if user wants to advance lesson.
   def nextlesson
-  	#Checks to see if user desired increment
-  	  #Would like to change the value of those params.
-  	if session[:tutsec] < session[:maxsec]
+  	
+	#If we haven't hit the last lesson in chapter,
+	# increment lesson. Otherwise on to the next chapter
+	# TODO: Change this to be stored in a table?
+	if session[:tutsec] < session[:maxsec]
   	  session[:tutsec] += 1
-  	elsif params[:nextch] == "nextch" && session[:tutch] < session[:maxch]
+  	else 
   	  session[:tutch] += 1
   	  session[:tutsec] = 1
   	end
@@ -87,12 +90,18 @@ class SqlconsController < ApplicationController
 	  #tabalias = nil
 	  
 	  if ( (tabalias == nil) || (tabalias =~ /(where|join|group|order)/)  )
-  		where_clause = ' where '+ tabname + '.uid = ' + uid
+  		table_clause = tabname + '.uid = ' + uid
 	  else	
-  		where_clause = ' where '+ tabalias + '.uid = ' + uid
+  		table_clause = tabalias + '.uid = ' + uid
 	  end
 	 
+	  #If it is a join statement, need to include uid in "on" clause, 
+	  # else the results are not what user intended. 
+	  if p_qstring =~/(join)/
+		p_qstring = p_qstring.gsub /(on)(.*?)([_a-z]*)\.([_a-z]*)(.*?)([_a-z]+)\.([_a-z]+)/, '\1 \3.uid = \6.uid and \3.\4 = \6.\7'
+	  end
 
+	  where_clause = ' where ' + table_clause
 	  #We have to modify where we place 'where_clause' based on the incoming 
 	  # SQL statment. Otherwise we create a syntax error
 	  if p_qstring =~ /(where)/
