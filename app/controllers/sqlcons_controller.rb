@@ -40,6 +40,21 @@ class SqlconsController < ApplicationController
   	pickdisplay  
   	render :show 
   end
+  
+  def nextlesson
+  	#Checks to see if user desired increment
+  	  #Would like to change the value of those params.
+  	if session[:tutsec] < session[:maxsec]
+  	  session[:tutsec] += 1
+  	elsif params[:nextch] == "nextch" && session[:tutch] < session[:maxch]
+  	  session[:tutch] += 1
+  	  session[:tutsec] = 1
+  	end
+  	@qstatus = 3 
+  	@qresults = nil
+  	pickdisplay
+  	render :show
+  end
 
   # TODO: Add 'private' statement here to protect any method below if they don't have a corresponding view
 
@@ -50,8 +65,6 @@ class SqlconsController < ApplicationController
   	#Fetch query results, rescue from any mysql exceptions
   	begin
   	  @qstring = append_query(@qstring) 
-      # OPTIMIZE: Don't need to instantiate
-      # query = Dbq.new(:qtext=> @qstring)
   	  @qresults = Dbq.execquery(@qstring)
   	rescue Exception => e
   	  #use replace function to clean up error
@@ -69,23 +82,16 @@ class SqlconsController < ApplicationController
   def append_query(p_qstring)
 	  uid      = current_user.id.to_s
 	  tabname  = p_qstring[/(from)( )*([_a-z]+)( )*([_a-z]*)/, 3]
-	  tabalias = p_qstring[/(from)( )*([_a-z]+)( )*([_a-z]*)/, 5]
-<<<<<<< HEAD
-	  if (tabalias == nil)  || (tabalias =~ /(where|join|group|order)/) 
-		where_clause = ' where '+ tabname + '.uid = ' + uid
-	  else	
-		where_clause = ' where '+ tabalias + '.uid = ' + uid
-=======
-
-    # FIXME: I was getting errors on this, so I rewrote the logic and it seemed to work
-    # but you know the code better than I so maybe there was a reason for it
-	  if not tabalias.nil? and not tabalias.include?('join')
-  		where_clause = ' where '+ tabname + '.uid = ' + uid
-	  else	
-  		where_clause = ' where '+ tabname + '.uid = ' + uid
->>>>>>> 2ea66ff617596c5789a6eab5ec04a72a8d2ae7ee
-	  end
+	  tabalias = p_qstring[/(from)( )+([_a-z]+)( )+([_a-z]*)/, 5]
+	  #tabalias = nil
 	  
+	  if ( (tabalias == nil) || (tabalias =~ /(where|join|group|order)/)  )
+  		where_clause = ' where '+ tabname + '.uid = ' + uid
+	  else	
+  		where_clause = ' where '+ tabalias + '.uid = ' + uid
+	  end
+	 
+
 	  #We have to modify where we place 'where_clause' based on the incoming 
 	  # SQL statment. Otherwise we create a syntax error
 	  if p_qstring =~ /(where)/
@@ -100,21 +106,6 @@ class SqlconsController < ApplicationController
 	  return ret_string
   end
 
-  # TODO: Move this method to right below 'fetchquery' 
-  def nextlesson
-  	#Checks to see if user desired increment
-  	  #Would like to change the value of those params.
-  	if session[:tutsec] < session[:maxsec]
-  	  session[:tutsec] += 1
-  	elsif params[:nextch] == "nextch" && session[:tutch] < session[:maxch]
-  	  session[:tutch] += 1
-  	  session[:tutsec] = 1
-  	end
-  	@qstatus = 3 
-  	@qresults = nil
-  	pickdisplay
-  	render :show
-  end
   
   #Based on current state of @qstatus, determines whether to 
   #display next stage in tutorial, or a specific error page
@@ -129,7 +120,7 @@ class SqlconsController < ApplicationController
   	  errname = "qerror.html"
   	end
   	#bool to determine views display
-  	@waserror = @qstatus != 0 and @qstatus != 3 
+  	@waserror = (@qstatus != 0 and @qstatus != 3) 
   	path = Rails.root + "app/views/sqlcons/tutorials/"
   	@lesson_name = path + tutname 
   	@error_name = path + errname
