@@ -11,9 +11,10 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me
 
   def do_inserts
-	#Inserts into alternate database
-	query = Dbq.new(:qtext=> "stuff")
-	query.db_insert(id)
+  	#Inserts into alternate database
+    # OPTIMIZE: Don't need to instantiate
+    # query = Dbq.new(:qtext=> "stuff")
+  	Dbq.db_insert(id)
   end
 
   #Define some sort of reset database controller. 
