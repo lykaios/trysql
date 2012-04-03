@@ -4,7 +4,7 @@
 #Reset "sandbox" database
 read -p "User:  " U
 read -p "Password:  " P
-mysql -u$U -p$P <<< 'source db/trysql_data_create.sql'
+mysql -u$U -p$P <<< 'source trysql_data_create.sql'
 
 #Reset rails application
 rake db:drop

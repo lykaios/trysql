@@ -9,7 +9,7 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require_tree .
+ *= require bootstrap_and_overrides 
+
+ *if I want other .css, add after this require "filename"
 */
-H3 {text-align: center}
-P {text-align: center}
