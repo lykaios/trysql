@@ -22,7 +22,7 @@
 <%= render :file => @error_name if @waserror%>
 <!--Prints out header row of table-->
   <% if @qresults %>
-  <table border = "1">
+  <table class = table table-bordered table-condensed>
 	<% qfields = @qresults.fields%>
 	<tr>
 	<% qfields.each do |headrow| %>
