@@ -1,5 +1,5 @@
 <body>
-<h2>Welcome to TRYSQL!</h2>
+<h2>Welcome to TrySQL!</h2>
   <p>
   Just by arriving at this page, you've begun your first step on the road to database mastery.  The goal of this website is to take you through some basic tutorials, giving you a general feel of how Structured Query Language works.  The scope of this tutorial is to familiarize you with the language and specifc methods of querying, if you need an overview of databasing, I recommend the following website [link here] 
   <br />
@@ -12,7 +12,7 @@
  
   <!--Text area for next query-->
   <%= form_tag(sqlcons_fetchquery_path, :method => "get") do %>
-  <%= text_area_tag(:q,  "select * from courses",:size=>"30x6") %>
+  <%= text_area_tag(:q,  "select * from courses",:size=>"90x3") %>
   <br />
   <%= submit_tag("querydb", :onclick=>"this") %>
   <% end %>
