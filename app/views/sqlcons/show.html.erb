@@ -1,4 +1,3 @@
-<p id="notice"><%= notice %></p>
 <!-- 
 <b> Query Status = <%= @qstatus %></b>
 <br / > Regtext = <%= @qmodel.regtext.to_s if @qmodel%>
@@ -11,11 +10,11 @@
   <%= form_tag(sqlcons_fetchquery_path, :method => "get") do %>
   <%= text_area_tag(:q, @qstring_init,:size=>"60x3") %>
   <br />
-  <%= submit_tag("querydb", :onclick=>"this") %>
+  <%= submit_tag("QueryDB", :onclick=>"this") %>
   <% end %>
   <!-- if they submitted a valid query, allow them to move on to the next section -->
   <% if @qstatus == 0%>
-	<b> <%= link_to( "Next Section", sqlcons_nextlesson_path) %> </b>
+	<%= button_to( "Next Lesson", :action => "nextlesson") %> 
   <% end %>
   <br />
 <%= render :file => @error_name if @waserror%>
@@ -41,5 +40,4 @@
   <% end %>
   <br />
 </p>
-<%= link_to 'Back', sqlcons_path %>
 
