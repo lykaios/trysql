@@ -16,4 +16,4 @@ Sqlcons.create(ch: 1, sec: 7, regtext: '(select)(.*?)(courses)(.*?)(order)(.*?)(
 
 #Chapter 2
 Sqlcons.create(ch: 2,sec:  1,regtext: '(select)(.*?)(course_fcts)(.*?)(join)(.*?)');
-Sqlcons.create(ch: 1,sec:  2,regtext: '(select)(.*?)(course_fcts)(.*?)(join)(.*?)');
+Sqlcons.create(ch: 2,sec:  2,regtext: '(select)(.*?)(course_fcts)(.*?)(join)(.*?)');

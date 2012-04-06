@@ -2,7 +2,7 @@
 #Simple bash script to reset both databases
 
 #Reset "sandbox" database
-read -p "User:  " U
+read -p "DB User:  " U
 read -p "Password:  " P
 mysql -u$U -p$P <<< 'source trysql_data_create.sql'
 
