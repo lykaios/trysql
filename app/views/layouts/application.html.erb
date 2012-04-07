@@ -12,7 +12,7 @@
 <!--	  <a class="btn btn-navbar">
 		<span class="icon-bar"></span>
 	  </a>-->
-	  <span class="brand"><%=link_to_if(user_signed_in?, "TrySQL", {:controller=> "sqlcons"})%></span>
+	  <span class="brand"><%=link_to_if(user_signed_in?, "TrySQL", {:controller=> "home", :action=> "index"})%></span>
 	  <ul class="nav">
 		  <li class="divider-vertical"></li>
 		  <% if user_signed_in? %>

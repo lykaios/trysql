@@ -1,11 +1,26 @@
 <body>
 <h2><%= link_to "SQL", sqlcons_path %></h2>
 
-  <%= form_tag(home_jumplesson_path, :method => "get") do %>
-  <%= number_field_tag('lesson', :min => 1, :max => 2) %>
-  <br />
-  <%= submit_tag("Submit Lesson", :onclick=>"this") %>
+<br />
+  <% if @chapters %>
+  <i><%= "Chapters Shortcut"%></i>
+  <table >
+  <tr>	
+	<th>Title</th>
+	<th>Description</th>
+	<th>Link</th>
+  </tr>
+  <!--Prints out rows of table-->
+  <% @chapters.each do |row| %>
+  <tr>
+	<td><%=row.title%></td> 
+	<td><%=row.description%></td> 
+	<td><%=link_to 'start here', '/jlesson/' + row.id.to_s%></td> 
+  </tr>
+  <%end %>
+  </table>
   <% end %>
 
-  Think of how best to display this. A table?
+
+
 </body>

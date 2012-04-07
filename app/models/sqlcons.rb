@@ -1,6 +1,6 @@
 class Sqlcons < ActiveRecord::Base
-#establish_connection("sandbox")
-#this will make it so everything done in this model only interacts with this db. 
+#This model contains the regexp for each individual lesson we go through.
+
   def checkquery
 	#create a regexp object based on string we recieve from controller
 	reg = Regexp.new(regtext.to_s)

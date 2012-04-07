@@ -11,9 +11,9 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me
 
   def do_inserts
-  	#Inserts into alternate database
-    # OPTIMIZE: Don't need to instantiate
-    # query = Dbq.new(:qtext=> "stuff")
+	#Insert into our chapter tracker, showing how far they have advanced in lessons
+  	connection.execute "INSERT INTO userlessons (completed_ch, uid) values (0, #{id})"
+	#Inserts into alternate database
   	Dbq.db_insert(id)
   end
 
