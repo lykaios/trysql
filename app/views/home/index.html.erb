@@ -1,3 +1,11 @@
 <body>
 <h2><%= link_to "SQL", sqlcons_path %></h2>
+
+  <%= form_tag(home_jumplesson_path, :method => "get") do %>
+  <%= number_field_tag('lesson', :min => 1, :max => 2) %>
+  <br />
+  <%= submit_tag("Submit Lesson", :onclick=>"this") %>
+  <% end %>
+
+  Think of how best to display this. A table?
 </body>

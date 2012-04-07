@@ -9,7 +9,6 @@ class SqlconsController < ApplicationController
     session[:tutsec]  = 1  
   	session[:maxsec]  = 7	
   	session[:maxch]   = 2	
-  	session[:uid]     = 1 
   	#Insert data into database
   	respond_to do |format|
         format.html # index.html.erb
@@ -98,7 +97,7 @@ class SqlconsController < ApplicationController
 	  #If it is a join statement, need to include uid in "on" clause, 
 	  # else the results are not what user intended. 
 	  if p_qstring =~/(join)/
-		p_qstring = p_qstring.gsub /(on)(.*?)([_a-z]*)\.([_a-z]*)(.*?)([_a-z]+)\.([_a-z]+)/, '\1 \3.uid = \6.uid and \3.\4 = \6.\7'
+		p_qstring = p_qstring.gsub /(on)(.*?)([_a-z]*)\.([_a-z]*)(.*?)([_a-z]+)\.([_a-z]+)/, '\1 \2\3.uid = \6.uid and \3.\4 = \6.\7'
 	  end
 
 	  where_clause = ' where ' + table_clause

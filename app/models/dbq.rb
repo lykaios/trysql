@@ -7,12 +7,11 @@ class Dbq < ActiveRecord::Base
   # by pointing them to a "sandbox" type database, just holding tables
   # for them to query against. 
 
-  # TODO: Append `self.` to method name so you don't need to instantiate class before using method
+  #self. allows model to call method without instantiating class. 
   def self.execquery(query)
 	  return connection.execute(query)
   end
  
-  # TODO: Append self. to method name so you don't need to instantiate class before using method
   #Method is called when a new user is created.
   #Inserts all necessary default values into sandbox database to allow 
   #for querying
@@ -25,6 +24,7 @@ class Dbq < ActiveRecord::Base
   	connection.execute "INSERT INTO students (id, fname, lname, uid) values (5, 'Steve', 'Bealer', #{user_id})"
   	connection.execute "INSERT INTO students (id, fname, lname, uid) values (6, 'Scott', 'Jungling', #{user_id})"
   	connection.execute "INSERT INTO students (id, fname, lname, uid) values (7, 'Kyle', 'Miller', #{user_id})"
+  	connection.execute "INSERT INTO students (id, fname, lname, uid) values (8, 'Kyle', 'Marx', #{user_id})"
   
   	#Insert courses
   	 connection.execute "INSERT INTO courses (id,dept,cnum,title,cdesc,uid) VALUES ('1','CSCI','224','PHP Grammar','Learn the basics.',#{user_id})"
