@@ -92,17 +92,16 @@ class SqlconsController < ApplicationController
 	  else	
   		table_clause = tabalias + '.uid = ' + uid
 	  end
+	  
+	  where_clause = ' where ' + table_clause
 	 
 	  #If it is a join statement, need to include uid in "on" clause, 
 	  # else the results are not what user intended. 
-	  if p_qstring =~/(join)/
-		p_qstring = p_qstring.gsub /(on)(.*?)([_a-z]*)\.([_a-z]*)(.*?)([_a-z]+)\.([_a-z]+)/, '\1 \2\3.uid = \6.uid and \3.\4 = \6.\7'
-	  end
-
-	  where_clause = ' where ' + table_clause
 	  #We have to modify where we place 'where_clause' based on the incoming 
 	  # SQL statment. Otherwise we create a syntax error
-	  if p_qstring =~ /(where)/
+	  if p_qstring =~/(join)/
+		ret_string = p_qstring.gsub /(on)(.*?)([_a-z]*)\.([_a-z]*)(.*?)([_a-z]+)\.([_a-z]+)/, '\1 \2\3.uid = \6.uid and \3.uid = '+uid+' and \3.\4 = \6.\7'
+	  elsif p_qstring =~ /(where)/
   		ret_string = p_qstring.gsub /(where)/, where_clause + ' and '
 	  elsif p_qstring =~ /(group)/
   		ret_string = p_qstring.gsub /(group)/, where_clause + ' group '
