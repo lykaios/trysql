@@ -12,7 +12,12 @@ class User < ActiveRecord::Base
 
   def do_inserts
 	#Insert into our chapter tracker, showing how far they have advanced in lessons
-  	connection.execute "INSERT INTO userlessons (completed_ch, uid) values (0, #{id})"
+  	#Purely for DEV purposes, "root" user has completed all chapters
+	if(id == 1)
+	  connection.execute "INSERT INTO userlessons (completed_ch, uid) values (2, #{id})"
+	else
+	  connection.execute "INSERT INTO userlessons (completed_ch, uid) values (0, #{id})"
+	end
 	#Inserts into alternate database
   	Dbq.db_insert(id)
   end

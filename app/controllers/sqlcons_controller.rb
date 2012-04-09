@@ -86,7 +86,6 @@ class SqlconsController < ApplicationController
 	  uid      = current_user.id.to_s
 	  tabname  = p_qstring[/(from)( )*([_a-z]+)( )*([_a-z]*)/, 3]
 	  tabalias = p_qstring[/(from)( )+([_a-z]+)( )+([_a-z]*)/, 5]
-	  #tabalias = nil
 	  
 	  if ( (tabalias == nil) || (tabalias =~ /(where|join|group|order)/)  )
   		table_clause = tabname + '.uid = ' + uid

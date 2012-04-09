@@ -17,11 +17,8 @@ Sqlcons.create(ch: 1, sec: 7, regtext: '(select)(.*?)(courses)(.*?)(order)(.*?)(
 #Chapter 2
 Sqlcons.create(ch: 2,sec:  1,regtext: '(select)(.*?)(course_fcts)(.*?)(join)(.*?)');
 Sqlcons.create(ch: 2,sec:  2,regtext: '(select)(.*?)(course_fcts)(.*?)(join)(.*?)');
-Sqlcons.create(ch: 2,sec:  2,regtext: '(select)(.*?)(course_fcts)(.*?)(left join)(.*?)');
-
-#Test Only
-#Create the first user as having completed the first lesson
-#Userlesson.create(completed_ch: 2, uid: 1 );
+Sqlcons.create(ch: 2,sec:  3,regtext: '(select)(.*?)(students)(.*?)(left join)(.*?)');
+Sqlcons.create(ch: 2,sec:  4,regtext: '(select)(.*?)');
 
 #Chapter description for each chapter.
 Chapters.create( title:'Select' , description:'The most basic forms of querying a database');

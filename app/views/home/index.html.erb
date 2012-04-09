@@ -15,7 +15,7 @@
   <tr>
 	<td><%=row.title%></td> 
 	<td><%=row.description%></td> 
-	<td><%=link_to 'start here', '/jlesson/' + row.id.to_s%></td> 
+	<td><%=link_to 'start here', jump_lesson_path(row.id.to_s)%></td> 
   </tr>
   <%end %>
   </table>

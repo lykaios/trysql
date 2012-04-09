@@ -1,9 +1,9 @@
 Trysql::Application.routes.draw do
   devise_for :users
  
-  #Would like to fix this hackery
-  get "home/jlesson/:id" => "home#jump_to_lesson"
-  get "home/index"
+  #match "home/jlesson/:id" => "home#jump_to_lesson", :as => "jump_lesson"
+  match "jump_lesson/:id" => "home#jump_to_lesson", :as => "jump_lesson"
+  #get "home/index"
   root :to => "home#index"
   
   match "/sqlcons/fetchquery" => "sqlcons#fetchquery"

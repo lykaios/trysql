@@ -1,6 +1,6 @@
 <h3>Ch2-2: Inner Join cont.  </h3>
 <p>
-We can also join multiple tables at a time, by adding another join clause.  Since we are using a "dimensional" model for our database, <i>course_fcts</i>essentially links all the other tables together
+We can also join multiple tables at a time, by adding another join clause.  Since we are using a "dimensional" model for our database, <i>course_fcts</i> essentially links all the other tables together
 
 Lets say we want to see students associated with their courses information.  
 <code> "select fname, lname, title from course_fcts a join students b on (a.student_id = b.id) join courses c on (c.id = a.course_id)" </code>
