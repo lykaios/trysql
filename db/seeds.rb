@@ -19,9 +19,10 @@ Sqlcons.create(ch: 2,sec:  1,regtext: '(select)(.*?)(course_fcts)(.*?)(join)(.*?
 Sqlcons.create(ch: 2,sec:  2,regtext: '(select)(.*?)(course_fcts)(.*?)(join)(.*?)');
 Sqlcons.create(ch: 2,sec:  3,regtext: '(select)(.*?)(students)(.*?)(left join)(.*?)');
 Sqlcons.create(ch: 2,sec:  4,regtext: '(select)(.*?)');
+Sqlcons.create(ch: 2,sec:  5,regtext: '(select)(.*?)');
 
 #Chapter description for each chapter.
-Chapters.create( title:'Select' , description:'The most basic forms of querying a database');
-Chapters.create( title:'Joins' , description:'How to link tables together');
-Chapters.create( title:'Functions' , description:'Aggregate functions and analytics');
+Chapters.create( title:'Select' , description:'The most basic forms of querying a database', maxlesson:7);
+Chapters.create( title:'Joins' , description:'How to link tables together', maxlesson:5);
+Chapters.create( title:'Functions' , description:'Aggregate functions and analytics', maxlesson:1);
 

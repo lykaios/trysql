@@ -1,0 +1,7 @@
+<h3>Ch2-5: Right Join</h3>
+<p>
+We can also apply the concept of joins in the other direction, simply switching 'left' to 'right'.  This is saying give me all the rows of the right-hand table (teachers in query below)
+and match those rows with those in the 'left' table (course_fcts below.)  If there are no matches in the left table, <code>NULL</code> fields will be displayed.
+<br / >
+<code>select * from course_fcts c right join teachers t on (t.id = c.teacher_id) order by 1</code>
+</p>

@@ -4,12 +4,10 @@ class SqlconsController < ApplicationController
   # GET /sqlcons
   # GET /sqlcons.json
   def index
-  	#define session variables to load correct tutorial views
+  	session[:maxsec]  = Chapters.select(:maxlesson).where("id = 1").first.maxlesson	
+  	session[:maxch]   = Chapters.maximum(:id)
   	session[:tutch]   = 1
     session[:tutsec]  = 1  
-  	session[:maxsec]  = 7	
-  	session[:maxch]   = 2	
-  	#Insert data into database
   	respond_to do |format|
         format.html # index.html.erb
         format.json { render :json => @sqlcons }
@@ -99,7 +97,9 @@ class SqlconsController < ApplicationController
 	  # else the results are not what user intended. 
 	  #We have to modify where we place 'where_clause' based on the incoming 
 	  # SQL statment. Otherwise we create a syntax error
-	  if p_qstring =~/(join)/
+	  if p_qstring =~ /(right)(.*?)(join)/
+		ret_string = p_qstring.gsub /(join)( )*([_a-z]+)( )*([_a-z]+)(.*?)(on)/, '\1 \2 \3 \4 \5 \6 \7 \5.uid = ' + uid + ' and '
+	  elsif p_qstring =~ /(join)/
 		ret_string = p_qstring.gsub /(on)(.*?)([_a-z]*)\.([_a-z]*)(.*?)([_a-z]+)\.([_a-z]+)/, '\1 \2\3.uid = \6.uid and \3.uid = '+uid+' and \3.\4 = \6.\7'
 	  elsif p_qstring =~ /(where)/
   		ret_string = p_qstring.gsub /(where)/, where_clause + ' and '

@@ -1,0 +1,1 @@
+GRANT ALL ON trysql.* TO 'trysqlsvc'@'localhost';
