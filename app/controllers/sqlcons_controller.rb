@@ -85,16 +85,6 @@ class SqlconsController < ApplicationController
   #Used to control which rows a user can see. (Associated with their user id)
   def append_query(p_qstring)
 	  uid      = current_user.id.to_s
-	  tabname  = p_qstring[/(from)( )*([_a-z]+)( )*([_a-z]*)/, 3]
-	  tabalias = p_qstring[/(from)( )+([_a-z]+)( )+([_a-z]*)/, 5]
-	  
-	  if ( (tabalias == nil) || (tabalias =~ /(where|join|group|order)/)  )
-  		table_clause = tabname + '.uid = ' + uid
-	  else	
-  		table_clause = tabalias + '.uid = ' + uid
-	  end
-	  
-	  where_clause = ' where ' + table_clause
 	 
 	  #If it is a join statement, need to include uid in "on" clause, 
 	  # else the results are not what user intended. 
@@ -102,18 +92,29 @@ class SqlconsController < ApplicationController
 	  # SQL statment. Otherwise we create a syntax error
 	  if p_qstring =~ /(insert)/
 		ret_string = p_qstring.gsub /\)/, ', ' + uid + ')'
-	  elsif p_qstring =~ /(right)(.*?)(join)/
-		ret_string = p_qstring.gsub /(join)( )*([_a-z]+)( )+([_a-z]+)(.*?)(on)/, '\1 \2 \3 \4 \5 \6 \7 \5.uid = ' + uid + ' and '
-	  elsif p_qstring =~ /(join)/
-		ret_string = p_qstring.gsub /(on)(.*?)([_a-z]*)\.([_a-z]*)(.*?)([_a-z]+)\.([_a-z]+)/, '\1 \2\3.uid = \6.uid and \3.uid = '+uid+' and \3.\4 = \6.\7'
-	  elsif p_qstring =~ /(where)/
-  		ret_string = p_qstring.gsub /(where)/, where_clause + ' and '
-	  elsif p_qstring =~ /(group)/
-  		ret_string = p_qstring.gsub /(group)/, where_clause + ' group '
-	  elsif p_qstring =~ /(order)/
-  		ret_string = p_qstring.gsub /(order)/, where_clause + ' order '
 	  else
-  		ret_string = p_qstring + where_clause 
+		tabname  = p_qstring[/(from)( )*([_a-z]+)( )*([_a-z]*)/, 3]
+		tabalias = p_qstring[/(from)( )+([_a-z]+)( )+([_a-z]*)/, 5]
+		if ( (tabalias == nil) || (tabalias =~ /(where|join|group|order)/)  )
+		  table_clause = tabname + '.uid = ' + uid
+		else	
+		  table_clause = tabalias + '.uid = ' + uid
+		end
+		where_clause = ' where ' + table_clause
+  
+		if p_qstring =~ /(right)(.*?)(join)/
+		  ret_string = p_qstring.gsub /(join)( )*([_a-z]+)( )+([_a-z]+)(.*?)(on)/, '\1 \2 \3 \4 \5 \6 \7 \5.uid = ' + uid + ' and '
+		elsif p_qstring =~ /(join)/
+		  ret_string = p_qstring.gsub /(on)(.*?)([_a-z]*)\.([_a-z]*)(.*?)([_a-z]+)\.([_a-z]+)/, '\1 \2\3.uid = \6.uid and \3.uid = '+uid+' and \3.\4 = \6.\7'
+		elsif p_qstring =~ /(where)/
+		  ret_string = p_qstring.gsub /(where)/, where_clause + ' and '
+		elsif p_qstring =~ /(group)/
+		  ret_string = p_qstring.gsub /(group)/, where_clause + ' group '
+		elsif p_qstring =~ /(order)/
+		  ret_string = p_qstring.gsub /(order)/, where_clause + ' order '
+		else
+		  ret_string = p_qstring + where_clause 
+		end
 	  end
 	  return ret_string
   end
