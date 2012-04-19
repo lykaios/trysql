@@ -1,1 +1,2 @@
 GRANT ALL ON trysql.* TO 'trysqlsvc'@'localhost';
+GRANT ALL ON trysql_data.* TO 'trysqlsvc'@'localhost';

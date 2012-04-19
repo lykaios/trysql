@@ -21,8 +21,17 @@ Sqlcons.create(ch: 2,sec:  3,regtext: '(select)(.*?)(students)(.*?)(left join)(.
 Sqlcons.create(ch: 2,sec:  4,regtext: '(select)(.*?)');
 Sqlcons.create(ch: 2,sec:  5,regtext: '(select)(.*?)');
 
+#Chapter 3
+Sqlcons.create(ch: 3,sec: 1,regtext: '(insert)(.*?)');
+Sqlcons.create(ch: 3,sec: 2,regtext: '(insert)(.*?)');
+Sqlcons.create(ch: 3,sec: 3,regtext: '(insert)(.*?)');
+
+#Chapter 4
+Sqlcons.create(ch: 4,sec: 1,regtext: '(delete)(.*?)');
+
 #Chapter description for each chapter.
 Chapters.create( title:'Select' , description:'The most basic forms of querying a database', maxlesson:7);
-Chapters.create( title:'Joins' , description:'How to link tables together', maxlesson:5);
+Chapters.create( title:'Join' , description:'How to link tables together', maxlesson:5);
+Chapters.create( title:'Insert' , description:'Adding rows to a table', maxlesson:3);
 Chapters.create( title:'Functions' , description:'Aggregate functions and analytics', maxlesson:1);
 

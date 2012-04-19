@@ -19,21 +19,28 @@
 <%= render :file => @error_name if @waserror%>
 <!--Prints out header row of table-->
   <% if @qresults %>
-  <% var_unprint = 1%>
+  <% unprint = [99] %>
+  <% field_chk = 0 %>
   <b><%= "Query Results"%></b>
   <table >
 	<% qfields = @qresults.fields%>
 	<tr>
 	<% qfields.each do |headrow| %>
-	  <th><%=headrow.upcase if headrow != 'uid'%></th>
+	  <th><%if headrow == 'uid'%>
+			<% unprint.push(field_chk) %>
+		  <%else%>
+			<%= headrow.upcase %>
+		  <%end%>
+	<% field_chk += 1 %>
 	<%end%>
 	</tr>
   <!--Prints out rows of table-->
   <% @qresults.each do |row| %>
+	<% field_chk = 0 %> 	
 		<tr>
 		<%row.each do |col|%>
-		  <td><%= col%></td>
-		  <%= col %>
+		  <td><%= col if !(unprint.include?(field_chk))%></td>
+			  <% field_chk += 1 %>
 		  <%end%>
 		</tr>
   <%end %>
