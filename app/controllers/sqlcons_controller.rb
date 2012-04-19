@@ -43,13 +43,15 @@ class SqlconsController < ApplicationController
   	
 	#If we haven't hit the last lesson in chapter,
 	# increment lesson. Otherwise on to the next chapter
-	# TODO: Change this to be stored in a table?
 	if session[:tutsec] < session[:maxsec]
   	  session[:tutsec] += 1
   	else 
   	  session[:tutch] += 1
   	  session[:tutsec] = 1
-  	end
+	  #Check if this chapter is higher than the users last completed
+	  cur_max = Userlesson.select(:completed_ch).where(:uid => current_user.id) 
+	  Userlesson.update(current_user.id, :completed_ch => session[:tutch]) if session[:tutch] > cur_max
+	end
   	@qstatus = 3 
   	@qresults = nil
   	pickdisplay
@@ -79,6 +81,7 @@ class SqlconsController < ApplicationController
 	
   end
 
+
   #Used to control which rows a user can see. (Associated with their user id)
   def append_query(p_qstring)
 	  uid      = current_user.id.to_s
@@ -97,8 +100,10 @@ class SqlconsController < ApplicationController
 	  # else the results are not what user intended. 
 	  #We have to modify where we place 'where_clause' based on the incoming 
 	  # SQL statment. Otherwise we create a syntax error
-	  if p_qstring =~ /(right)(.*?)(join)/
-		ret_string = p_qstring.gsub /(join)( )*([_a-z]+)( )*([_a-z]+)(.*?)(on)/, '\1 \2 \3 \4 \5 \6 \7 \5.uid = ' + uid + ' and '
+	  if p_qstring =~ /(insert)/
+		ret_string = p_qstring.gsub /\)/, ', ' + uid + ')'
+	  elsif p_qstring =~ /(right)(.*?)(join)/
+		ret_string = p_qstring.gsub /(join)( )*([_a-z]+)( )+([_a-z]+)(.*?)(on)/, '\1 \2 \3 \4 \5 \6 \7 \5.uid = ' + uid + ' and '
 	  elsif p_qstring =~ /(join)/
 		ret_string = p_qstring.gsub /(on)(.*?)([_a-z]*)\.([_a-z]*)(.*?)([_a-z]+)\.([_a-z]+)/, '\1 \2\3.uid = \6.uid and \3.uid = '+uid+' and \3.\4 = \6.\7'
 	  elsif p_qstring =~ /(where)/

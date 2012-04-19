@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
 	#Insert into our chapter tracker, showing how far they have advanced in lessons
   	#Purely for DEV purposes, "root" user has completed all chapters
 	if(id == 1)
-	  connection.execute "INSERT INTO userlessons (completed_ch, uid) values (2, #{id})"
+	  connection.execute "INSERT INTO userlessons (completed_ch, uid) values (4, #{id})"
 	else
 	  connection.execute "INSERT INTO userlessons (completed_ch, uid) values (0, #{id})"
 	end
