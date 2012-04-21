@@ -1,4 +1,12 @@
-<h3>Ch3-1 : Inserts</h3>
+<h3>Ch3-1 : Insert</h3>
 <p>
+We have shown the basics of selecting against your existing data set, but what if you want to add to it?  Let's say we want to add a new student into the database. Simply write an insert into like below
+<br />
+<code>insert into students VALUES (13, 'Nick', 'Robert')</code>
 <br / > 
+This is going to add the student with id = 13, fname = Nick, lname = Robert into the students table.  To check that the query worked, after you submit, write a select statement to check that the student was inserted.
+<br / >
+<code>select * from students</code>
+<br / > 
+Please note, if you try to insert a student with the same ID as one already in the table, you will get a PRIMARY key violation.  This key is the tables way of ensuring that no two students have the same ID number. 
 </p>

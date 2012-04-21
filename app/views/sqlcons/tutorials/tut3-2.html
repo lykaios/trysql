@@ -1,4 +1,7 @@
-<h3>Ch3-1 : Aggregate functions</h3>
+<h3>Ch3-2 : Insert (cont.)</h3>
 <p>
-<br / > 
+Now let's get some more practice with the insert.  What if we wanted to add more than one row per insert? We could include multiple rows by adding comma-seperation to our values clause.  Let's say we wanted to add two teachers to our database:
+<br / ><code>insert into teachers VALUES (15, 'Jack', 'Lincoln'), (16, 'Jose', 'Lopez')</code> <br / >
+Great! Now lets check and see that those rows were actually inserted. 
+<br / ><code>select * from teachers order by fname</code> <br / >
 </p>

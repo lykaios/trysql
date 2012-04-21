@@ -49,7 +49,7 @@ class SqlconsController < ApplicationController
   	  session[:tutch] += 1
   	  session[:tutsec] = 1
 	  #Check if this chapter is higher than the users last completed
-	  cur_max = Userlesson.select(:completed_ch).where(:uid => current_user.id) 
+	  cur_max = Userlesson.select(:completed_ch).where(:uid => current_user.id).first.completed_ch 
 	  Userlesson.update(current_user.id, :completed_ch => session[:tutch]) if session[:tutch] > cur_max
 	end
   	@qstatus = 3 
@@ -91,9 +91,9 @@ class SqlconsController < ApplicationController
 	  #We have to modify where we place 'where_clause' based on the incoming 
 	  # SQL statment. Otherwise we create a syntax error
 	  if p_qstring =~ /(insert)/
-		ret_string = p_qstring.gsub /\)/, ', ' + uid + ')'
+		ret_string = p_qstring.gsub /\)( )*([^)])/, ', ' + uid + ') \2'
 	  else
-		tabname  = p_qstring[/(from)( )*([_a-z]+)( )*([_a-z]*)/, 3]
+		tabname  = p_qstring[/(from)( )+([_a-z]+)( )*([_a-z]*)/, 3]
 		tabalias = p_qstring[/(from)( )+([_a-z]+)( )+([_a-z]*)/, 5]
 		if ( (tabalias == nil) || (tabalias =~ /(where|join|group|order)/)  )
 		  table_clause = tabname + '.uid = ' + uid
