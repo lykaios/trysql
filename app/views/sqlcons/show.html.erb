@@ -21,15 +21,15 @@
   <% if @qresults %>
   <% unprint = [99] %>
   <% field_chk = 0 %>
-  <b><%= "Query Results"%></b>
+  <i><%= "Query Results"%></i>
   <table >
 	<% qfields = @qresults.fields%>
 	<tr>
 	<% qfields.each do |headrow| %>
-	  <th><%if headrow == 'uid'%>
+	  <%if headrow == 'uid'%>
 			<% unprint.push(field_chk) %>
 		  <%else%>
-			<%= headrow.upcase %>
+			<th><%= headrow.upcase %></th>
 		  <%end%>
 	<% field_chk += 1 %>
 	<%end%>
@@ -39,7 +39,9 @@
 	<% field_chk = 0 %> 	
 		<tr>
 		<%row.each do |col|%>
-		  <td><%= col if !(unprint.include?(field_chk))%></td>
+		  <% if !(unprint.include?(field_chk))%>
+				<td><%= col %></td>
+		  <% end %>
 			  <% field_chk += 1 %>
 		  <%end%>
 		</tr>
