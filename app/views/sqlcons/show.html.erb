@@ -1,27 +1,32 @@
 <!-- 
 -->
-<br / > Regtext = <%= @qmodel.regtext.to_s if @qmodel%>
-<br / > Qtext = <%= @qstring if @qstring%>
+<!-- Regtext = <%= @qmodel.regtext.to_s if @qmodel%> | Qtext = <%= @qstring if @qstring%> -->
+<br / > 
 <!--Prints to screen the current tutorial view or error message-->
-<%= render :file => @lesson_name%>
-<p>
-  <!-- Text area for next query-->
-  <%= form_tag(sqlcons_fetchquery_path, :method => "get") do %>
-  <%= text_area_tag(:q, @qstring_init,:size=>"60x3") %>
-  <br />
-  <%= submit_tag("QueryDB", :onclick=>"this") %>
-  <% end %>
-  <!-- if they submitted a valid query, allow them to move on to the next section -->
-  <% if @qstatus == 0%>
-	<%= button_to( "Next Lesson", :action => "nextlesson") %> 
-  <% end %>
-  <br />
+<div class="span6">
+	<%= render :file => @lesson_name%>
+	<p>
+	<!-- Text area for next query-->
+	<%= form_tag(sqlcons_fetchquery_path, :method => "get") do %>
+	<%= text_area_tag(:q, @qstring_init,:size=>"60x3") %>
+	<br />
+	<%= submit_tag("QueryDB", :onclick=>"this", :class=>"btn") %>
+	<!-- if they submitted a valid query, allow them to move on to the next section -->
+	<%= link_to( "Next Lesson", sqlcons_nextlesson_path, :class=>"btn") if @qstatus == 0%> 
+	<% end %>
+</div>
+<div class="span6">
+  <%= render :file => @help_name%>
+</div>
+<br />
+<div class="span12">
+<p class="query-results">
 <%= render :file => @error_name if @waserror%>
 <!--Prints out header row of table-->
   <% if @qresults %>
   <% unprint = [99] %>
   <% field_chk = 0 %>
-  <i><%= "Query Results"%></i>
+  <b><i><%= "Query Results"%></b></i>
   <table >
 	<% qfields = @qresults.fields%>
 	<tr>
@@ -48,6 +53,8 @@
   <%end %>
   </table>
   <% end %>
-  <br />
+</p>
+</div>
+<br />
 </p>
 

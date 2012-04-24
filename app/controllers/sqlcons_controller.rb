@@ -137,6 +137,7 @@ class SqlconsController < ApplicationController
   	path = Rails.root + "app/views/sqlcons/tutorials/"
   	@lesson_name = path + tutname 
   	@error_name = path + errname
+	@help_name = path + "help.html"
   end
 
 

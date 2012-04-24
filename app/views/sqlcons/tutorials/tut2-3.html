@@ -4,6 +4,5 @@ Now, the difficult part. When an inner join (or just join for short) links two o
 <br />
 If we want to see even the rows that didn't have a counterpart in the other table, we can use a left or right join respectively. A left join starts with the first listed table, and attempts to match those columns to the second table. If there aren't any matches, it will show the rows from the first table with <code>NULL</code> values for the second table's fields.  A <code>NULL</code> value is the databases way of saying "I don't know." It is important to note that unlike other languages, in SQL <code>NULL != NULL</code> and you cannot join tables in that fashion. 
 
-<br />
-<code>"select * from students s left join course_fcts c on (s.id = c.student_id) order by c.semester"</code>
+<br /><code>select * from students s left join course_fcts c on (s.id = c.student_id) order by c.semester</code>
 </p>
