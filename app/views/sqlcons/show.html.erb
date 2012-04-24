@@ -10,7 +10,7 @@
 	<%= form_tag(sqlcons_fetchquery_path, :method => "get") do %>
 	<%= text_area_tag(:q, @qstring_init,:size=>"60x3") %>
 	<br />
-	<%= submit_tag("QueryDB", :onclick=>"this", :class=>"btn") %>
+	<%= submit_tag("QueryDB", :onclick=>"this", :class=>"btn btn-inverse") %>
 	<!-- if they submitted a valid query, allow them to move on to the next section -->
 	<%= link_to( "Next Lesson", sqlcons_nextlesson_path, :class=>"btn btn-success") if @qstatus == 0%> 
 	<% end %>

@@ -15,7 +15,7 @@
   <tr>
 	<td><%=row.title%></td> 
 	<td><%=row.description%></td> 
-	<td><%=link_to 'start', jump_lesson_path(row.id.to_s), :class=>"btn"%></td> 
+	<td><%=link_to 'Start', jump_lesson_path(row.id.to_s), :class=>"btn btn-inverse"%></td> 
   </tr>
   <%end %>
   </table>
