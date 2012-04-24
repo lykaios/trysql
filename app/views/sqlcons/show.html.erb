@@ -12,7 +12,7 @@
 	<br />
 	<%= submit_tag("QueryDB", :onclick=>"this", :class=>"btn") %>
 	<!-- if they submitted a valid query, allow them to move on to the next section -->
-	<%= link_to( "Next Lesson", sqlcons_nextlesson_path, :class=>"btn") if @qstatus == 0%> 
+	<%= link_to( "Next Lesson", sqlcons_nextlesson_path, :class=>"btn btn-success") if @qstatus == 0%> 
 	<% end %>
 </div>
 <div class="span6">

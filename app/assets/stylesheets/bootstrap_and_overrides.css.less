@@ -5,16 +5,21 @@
 @iconSpritePath: asset-path('twitter/bootstrap/glyphicons-halflings.png');
 @iconWhiteSpritePath: asset-path('twitter/bootstrap/glyphicons-halflings-white.png');
 
-// Your custom LESS stylesheets goes here
+//Custom LESS stylesheets goes here
 
 //Define color scheme variables
-@linkColor: white;
-@backgroundColor: #A4A4A4;
+@linkColor: black;
+@backgroundColor: #EFEFEF;
+@highlightColor:white;
+@tabborder: #999;
 
 body {padding-top: 80px; 
 	  background-color: @backgroundColor;
 	  //text-align: center;
 	  //margin-bottom: 40px;
+}
+body.index{
+	  text-align: center;
 }
 p.query-results{
 	  border-top: 2px; 
@@ -26,7 +31,7 @@ p.query-results{
 	  text-align: center;
 }
 table{
-	border: 2px solid black;
+	border: 2px solid @tabborder;
 	text-align: center;
 	margin-left:auto;
 	margin-right:auto;
@@ -37,13 +42,14 @@ code{
 	border: 0px;
 }
 th,td{
-	border: 2px solid black;
+	border: 1px solid @tabborder;
 	text-align: center;
+	padding:2px;
 }
-i{
-	color: @linkColor;
+span.brand a{
+	color: @highlightColor;
 }
 .nav > li.notice{
 	padding: 10px 90px 10px;
-	color: @linkColor;
+	color: @highlightColor;
 }
