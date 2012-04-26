@@ -18,8 +18,9 @@ class SqlconsController < ApplicationController
   #@qstring = the query passed through params
   def fetchquery
   	#Save initial query so user doesn't see uid regulation	
-  	@qstring_init = params[:q].downcase 
-  	@qstring      = @qstring_init
+  	@qstring_init = params[:q].downcase
+	#Use strip to trim out the whitespace
+  	@qstring      = @qstring_init.strip
   	#Pull back regexp for the specific lesson
   	sectionregex = Sqlcons.select(:regtext).where(:ch => session[:tutch], :sec => session[:tutsec]).first.regtext
   	@qmodel      = Sqlcons.new(:id => 1, :qtext=> @qstring, :regtext => sectionregex)

@@ -1,6 +1,6 @@
-<!-- 
+<!--
+Regtext = <%= @qmodel.regtext.to_s if @qmodel%> | Qtext = <%= @qstring if @qstring%> 
 -->
-<!-- Regtext = <%= @qmodel.regtext.to_s if @qmodel%> | Qtext = <%= @qstring if @qstring%> -->
 <!--Prints to screen the current tutorial view or error message-->
 <div class="span6">
 	<%= render :file => @lesson_name%>
@@ -25,7 +25,7 @@
   <% if @qresults %>
   <% unprint = [99] %>
   <% field_chk = 0 %>
-  <b><i><%= "Query Results"%></b></i>
+  <b><i><%="Query Results" if !@waserror%></b></i>
   <table >
 	<% qfields = @qresults.fields%>
 	<tr>

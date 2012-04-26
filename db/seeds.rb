@@ -15,7 +15,7 @@ Sqlcons.create(ch: 2,sec:  1,regtext: '(select)(.*?)(course_fcts)(.*?)(join)(.*?
 Sqlcons.create(ch: 2,sec:  2,regtext: '(select)(.*?)(course_fcts)(.*?)(join)(.*?)');
 Sqlcons.create(ch: 2,sec:  3,regtext: '(select)(.*?)(students)(.*?)(left join)(.*?)');
 Sqlcons.create(ch: 2,sec:  4,regtext: '(select)(.*?)(teachers)(.*?)(left join)(.*?)');
-Sqlcons.create(ch: 2,sec:  5,regtext: '(select)(.*?)(teachers)(.*?)(right join)(.*?)');
+Sqlcons.create(ch: 2,sec:  5,regtext: '(select)(.*?)(course_fcts)(.*?)(right join)(.*?)');
 
 #Chapter 3
 Sqlcons.create(ch: 3,sec: 1,regtext: '(insert|select)(.*?)(students)');
