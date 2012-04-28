@@ -22,5 +22,4 @@ class User < ActiveRecord::Base
   	Dbq.db_insert(id)
   end
 
-  #Define some sort of reset database controller. 
 end

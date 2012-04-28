@@ -22,4 +22,10 @@ class HomeController < ApplicationController
 	#Now go to our sqlcons controller
 	redirect_to sqlcons_nextlesson_path
   end
+ 
+  #For use if users mess up their data, and want to reset it
+  def reset_data
+  	Dbq.db_reset(current_user.id)
+	render :index
+  end
 end

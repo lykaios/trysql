@@ -1,7 +1,7 @@
 Trysql::Application.routes.draw do
   devise_for :users
  
-  #match "home/jlesson/:id" => "home#jump_to_lesson", :as => "jump_lesson"
+  match "reset_data" => "home#reset_data", :as => "reset_data"
   match "jump_lesson/:id" => "home#jump_to_lesson", :as => "jump_lesson"
   #get "home/index"
   root :to => "home#index"
