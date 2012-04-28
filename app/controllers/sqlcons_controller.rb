@@ -25,7 +25,6 @@ class SqlconsController < ApplicationController
   	sectionregex = Sqlcons.select(:regtext).where(:ch => session[:tutch], :sec => session[:tutsec]).first.regtext
   	@qmodel      = Sqlcons.new(:id => 1, :qtext=> @qstring, :regtext => sectionregex)
 
-
   	#Validate whether the query is valid
   	if @qmodel.checkquery
   	  #Call method to execute query
@@ -92,7 +91,7 @@ class SqlconsController < ApplicationController
 	  #We have to modify where we place 'where_clause' based on the incoming 
 	  # SQL statment. Otherwise we create a syntax error
 	  if p_qstring =~ /(insert)/
-		ret_string = p_qstring.gsub /\)( )*([^)])/, ', ' + uid + ') \2'
+		ret_string = p_qstring.gsub /\)/, ', ' + uid + ') \2'
 	  else
 		tabname  = p_qstring[/(from)( )+([_a-z]+)( )*([_a-z]*)/, 3]
 		tabalias = p_qstring[/(from)( )+([_a-z]+)( )+([_a-z]*)/, 5]

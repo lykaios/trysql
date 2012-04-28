@@ -5,7 +5,7 @@ class Sqlcons < ActiveRecord::Base
 	#create a regexp object based on string we recieve from controller
 	reg = Regexp.new(regtext.to_s)
 	#regexp to make validate against common sqlinjection
-	reg2 = Regexp.new('(alter|drop|create|index|truncate|show|sqlcons|dbq|schema_migrations|;)')
+	reg2 = Regexp.new('(alter|drop|create|index|truncate|show|sqlcons|dbq|schema_migrations|;|union)')
 	
 	#Check if regexp was valid for lesson, and not a sqlinject attempt	
 	return (qtext =~ reg && !(qtext =~ reg2)) 

@@ -26,6 +26,6 @@ class HomeController < ApplicationController
   #For use if users mess up their data, and want to reset it
   def reset_data
   	Dbq.db_reset(current_user.id)
-	render :index
+	redirect_to root_path	
   end
 end
