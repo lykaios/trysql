@@ -1,7 +1,7 @@
 <body>
+<div class="span6">
 <div class="container-fluid">
-<h2>Sign up</h2>
-
+Welcome to TrySQL, your local SQL tutorial website. Please sign up below. <b>Note: Webmail not working.</b>
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
 
@@ -15,5 +15,6 @@
 
   <div><%= f.submit "Sign up" %></div>
 <% end %>
-
 <%= render "links" %>
+</div>
+</div>

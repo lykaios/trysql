@@ -15,18 +15,21 @@
 		  <% if user_signed_in? %>
 			<li>&nbsp;&nbsp;Signed in as <%= current_user.email %>
 			<%=link_to "Sign out", destroy_user_session_path, :method => "DELETE"%></li>
-		  <li class="divider-vertical"></li>
 		  <% else %>
 			<li><%= link_to "Sign up", new_user_registration_path %></li>
 			<li><%= link_to "Sign in", new_user_session_path %></li>
 		  <% end %> 
-		  <li class="notice"><%= notice if notice%></li>
-		  <li class="notice"><%= alert if alert%></li>
+		  <li class="divider-vertical"></li>
+		  <% if notice || alert %>
+		  <li class="notice"><%= notice%> <%= alert %></li>
+		  <li class="divider-vertical"></li>
+		  <% end %>
 	  </ul>
 	  </div>
 	</div>
   </div>
 </div>
+<h3 class="error">BETA: Please email nmallen89@gmail.com with concerns, bugs.</h3>
 <%= yield %>
 
 </html>
