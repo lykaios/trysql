@@ -33,6 +33,5 @@ gem 'jquery-rails'
 # Use unicorn as the web server
 # gem 'unicorn'
 
-
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
