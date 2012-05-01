@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.1'
-
 #Javascript stuff
 gem 'therubyracer'
 #Authentication
@@ -9,6 +8,9 @@ gem 'devise'
 #Database gem
 #gem 'sqlite3'
 gem 'mysql2'
+
+# Deploy with Capistrano
+gem 'capistrano'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -31,8 +33,6 @@ gem 'jquery-rails'
 # Use unicorn as the web server
 # gem 'unicorn'
 
-# Deploy with Capistrano
-# gem 'capistrano'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'

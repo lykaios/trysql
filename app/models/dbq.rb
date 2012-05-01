@@ -1,5 +1,5 @@
 class Dbq < ActiveRecord::Base
-  establish_connection(ActiveRecord::Base.configurations['dev_data'])  
+  establish_connection(ActiveRecord::Base.configurations['sandbox_data'])  
 
   #This model is used to execute a query to an alternate database
   #By the time the query arrives here, it has been properly sanitized. 

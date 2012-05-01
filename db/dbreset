@@ -4,8 +4,9 @@
 #Reset "sandbox" database
 read -p "DB User:  " U
 read -p "Password:  " P
+read -p "Enviroment: " E
 mysql -u$U -p$P <<< 'source trysql_data_create.sql'
 
 #Reset rails application
-rake db:drop
-rake db:setup
+rake db:drop RAILS_ENV=$E
+rake db:setup RAILS_ENV=$E
