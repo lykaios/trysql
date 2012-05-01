@@ -12,7 +12,9 @@
 
 # Ignore db config file
 /config/database.yml
-
+#Capistrano stuff
+Capfile
+/config/deploy.rb
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
