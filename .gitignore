@@ -7,14 +7,18 @@
 # Ignore bundler config
 /.bundle
 
+#Ignore compiled assets
+/public/assets/*
 # Ignore the default SQLite database.
 /db/*.sqlite3
 
 # Ignore db config file
 /config/database.yml
+
 #Capistrano stuff
 Capfile
 /config/deploy.rb
+
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp

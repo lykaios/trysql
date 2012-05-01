@@ -40,19 +40,22 @@ class SqlconsController < ApplicationController
   
   #Increments session parameters if user wants to advance lesson.
   def nextlesson
-  	
-	#If we haven't hit the last lesson in chapter,
+	cur_sec_max = Chapters.select(:maxlesson).where(:id => session[:tutch]).first.maxlesson
+	app_ch_max = Chapters.maximum("id")
+	#If we haven't hit the last lesson in chapter, or last chapter of tutorial
 	# increment lesson. Otherwise on to the next chapter
-	if session[:tutsec] < session[:maxsec]
+	if (session[:tutsec] < cur_sec_max) 
   	  session[:tutsec] += 1
-  	else 
-  	  session[:tutch] += 1
-  	  session[:tutsec] = 1
+  	elsif (session[:tutch] == app_ch_max)
+	  nil
+	else 
 	  #Check if this chapter is higher than the users last completed
 	  cur_max = Userlesson.select(:completed_ch).where(:uid => current_user.id).first.completed_ch 
 	  Userlesson.update(current_user.id, :completed_ch => session[:tutch]) if session[:tutch] > cur_max
+  	  session[:tutch] += 1
+  	  session[:tutsec] = 1
 	end
-  	@qstatus = 3 
+	@qstatus = 3 
   	@qresults = nil
   	pickdisplay
   	render :show
