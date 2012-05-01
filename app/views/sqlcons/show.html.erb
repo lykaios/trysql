@@ -1,6 +1,8 @@
-<!-- 
-Regtext = <%= @qmodel.regtext.to_s if @qmodel%> | Qtext = <%= @qstring if @qstring%> 
--->
+<!--Development output, invisible in production-->
+<% if ENV['RAILS_ENV'] == 'development'%>
+  Regtext = <%= @qmodel.regtext.to_s if @qmodel%> | Qtext = <%= @qstring if @qstring%> 
+<% end %>
+
 <!--Prints to screen the current tutorial view or error message-->
 <div class="span6">
 	<%= render :file => @lesson_name%>

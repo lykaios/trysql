@@ -98,6 +98,10 @@ class SqlconsController < ApplicationController
 	  else
 		tabname  = p_qstring[/(from)( )+([_a-z]+)( )*([_a-z]*)/, 3]
 		tabalias = p_qstring[/(from)( )+([_a-z]+)( )+([_a-z]*)/, 5]
+		if p_qstring =~ /(update)/
+		  tabname  = p_qstring[/(update)( )+([_a-z]+)( )*([_a-z]*)/, 3]
+		  tabalias = p_qstring[/(update)( )+([_a-z]+)( )+([_a-z]*)/, 5]
+		end
 		if ( (tabalias == nil) || (tabalias =~ /(where|join|group|order)/)  )
 		  table_clause = tabname + '.uid = ' + uid
 		else	

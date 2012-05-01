@@ -21,7 +21,7 @@ Sqlcons.create(ch: 2,sec:  5,regtext: '(select)(.*?)(course_fcts)(.*?)(right joi
 Sqlcons.create(ch: 3,sec: 1,regtext: '(insert|select)(.*?)(students)');
 Sqlcons.create(ch: 3,sec: 2,regtext: '(insert|select)(.*?)(teachers)');
 Sqlcons.create(ch: 3,sec: 3,regtext: '(delete|select)(.*?)(courses)');
-Sqlcons.create(ch: 3,sec: 4,regtext: '(update|select)(.*?)');
+Sqlcons.create(ch: 3,sec: 4,regtext: '(update)(.*?)(courses)( )+ (set)|(select)(.*?)(courses)');
 
 #Chapter 4
 Sqlcons.create(ch: 4,sec: 1,regtext: '(select)(.*?)');
