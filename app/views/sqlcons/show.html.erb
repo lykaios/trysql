@@ -3,23 +3,25 @@
   <div class="span12">Regtext = <%= @qmodel.regtext.to_s if @qmodel%> | Qtext = <%= @qstring if @qstring%> </div>
 <% end %>
 
-<!--Prints to screen the current tutorial view or error message-->
+<!--Prints to screen the current tutorial view-->
 <div class="span6">
 	<%= render :file => @lesson_name%>
 	<p>
 	<!-- Text area for next query-->
 	<%= form_tag(sqlcons_fetchquery_path, :method => "get") do %>
-	<%= text_area_tag(:q, @qstring_init,:size=>"60x3") %>
+	<%= text_area_tag(:q, @qstring_init,:size=>"100x3") %>
 	<br />
 	<%= submit_tag("QueryDB", :onclick=>"this", :class=>"btn btn-inverse") %>
 	<!-- if they submitted a valid query, allow them to move on to the next section -->
 	<%= link_to( "Next Lesson", sqlcons_nextlesson_path, :class=>"btn btn-success") if @qstatus == 0%> 
 	<% end %>
 </div>
+<!--Display the tips page-->
 <div class="span6">
   <%= render :file => @help_name%>
 </div>
 <br />
+<!-- Display all the query results -->
 <div class="span12">
 <p class="query-results">
 <%= render :file => @error_name if @waserror%>

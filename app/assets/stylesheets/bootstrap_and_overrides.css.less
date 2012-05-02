@@ -12,7 +12,8 @@
 @backgroundColor: #EFEFEF;
 @highlightColor:white;
 @tabborder: #999;
-
+@textareaW: 500px;
+@textareaH: 40px;
 body {padding-top: 80px; 
 	  background-color: @backgroundColor;
 	  //text-align: center;
@@ -35,6 +36,13 @@ p.query-results{
 	  border-style: solid; 
 	  border-color: black;
 	  text-align: center;
+}
+textarea{
+	  resize: none; 
+	  max-height: @textareaH; 
+	  min-height: @textareaH;
+	  max-width: @textareaW; 
+	  min-width: @textareaW;
 }
 table{
 	border: 2px solid @tabborder;
