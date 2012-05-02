@@ -1,6 +1,6 @@
 <!--Development output, invisible in production-->
 <% if ENV['RAILS_ENV'] == 'development'%>
-  Regtext = <%= @qmodel.regtext.to_s if @qmodel%> | Qtext = <%= @qstring if @qstring%> 
+  <div class="span12">Regtext = <%= @qmodel.regtext.to_s if @qmodel%> | Qtext = <%= @qstring if @qstring%> </div>
 <% end %>
 
 <!--Prints to screen the current tutorial view or error message-->
