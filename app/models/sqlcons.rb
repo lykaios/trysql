@@ -1,6 +1,5 @@
 class Sqlcons < ActiveRecord::Base
 #This model contains the regexp for each individual lesson we go through.
-
   def checkquery
 	#create a regexp object based on string we recieve from controller
 	#true makes for case insensitive matching
@@ -11,6 +10,4 @@ class Sqlcons < ActiveRecord::Base
 	#Check if regexp was valid for lesson, and not a sqlinject attempt	
 	return (qtext =~ reg && !(qtext =~ reg2)) 
   end
-
-
 end

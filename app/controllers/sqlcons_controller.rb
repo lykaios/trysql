@@ -1,5 +1,7 @@
 class SqlconsController < ApplicationController
   #qvarname means it has to do with query
+  #Make sure user is signed in before they can access application
+  before_filter :validate_user
 
   # GET /sqlcons
   # GET /sqlcons.json
