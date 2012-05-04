@@ -11,7 +11,7 @@ gem 'mysql2'
 
 # Deploy with Capistrano
 gem 'capistrano'
-
+gem 'passenger'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
