@@ -1,5 +1,9 @@
 <h3>Ch4-1 : Count</h3>
 <p>
-Coming soon! In the meantime feel free to play with the other lessons. Thank you for your patience. 
+Now we're going to move on to analysis of large data.  Our tables here are pretty small (less than 20 rows), but the techniques learned will be valuable when working with millions of rows. 
+<br /> <br />
+The foundation of your standard aggregate select statement is the <code>count</code> function. As you might expect it returns the number of rows in a table.  We can further refine the search by adding a where clause. This will then go out and retrieve a count for all rows matching the where clause. Try the two queries below. 
+<br /><code>select count(*) from students</code>
+<br /><code>select count(*) from students where fname like 'S%'</code>
 <br / > 
 </p>
