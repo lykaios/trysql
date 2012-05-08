@@ -7,7 +7,6 @@ class SqlconsController < ApplicationController
   # GET /sqlcons.json
   def index
   	session[:maxsec]  = Sqlcons.maximum(:sec).where("ch = 1")	
-  	#session[:maxsec]  = Chapters.select(:maxlesson).where("id = 1").first.maxlesson	
   	session[:tutch]   = 1
     	session[:tutsec]  = 1  
 	render :index  
@@ -40,7 +39,6 @@ class SqlconsController < ApplicationController
   #Increments session parameters if user wants to advance lesson.
   def nextlesson
 	cur_sec_max = Sqlcons.maximum(:sec, :conditions => "ch = " + session[:tutch].to_s)
-	#Chapters.select(:maxlesson).where(:id => session[:tutch]).first.maxlesson
 	app_ch_max = Chapters.maximum("id")
 	#If we haven't hit the last lesson in chapter, or last chapter of tutorial
 	# increment lesson. Otherwise on to the next chapter

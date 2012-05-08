@@ -1,0 +1,9 @@
+<h3>Ch4-3 : Having</h3>
+<p>
+Now that we have the basics of grouping down, let's move on to the <code>having</code> clause.
+<br /> <br />
+This clause acts almost as a "where" clause for aggregate function columns.  For instance: Let's say we wanted to collect a count of students classes in the course_fct table, but only where that student had more than 2 classes.  We can't just do where count(*) &gt; 1 because that column doesn't exist in the database.  Instead we use having like below 
+<br /><code>select count(*), student_id from course_fcts group by student_id having count(*) &gt; 1</code>
+<br / > 
+
+</p>

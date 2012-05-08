@@ -1,9 +1,9 @@
 <h3>Ch4-2 : Count (cont.)</h3>
 <p>
-To further assist in data analysis, we can employ the <code>group by<code> clause. 
+One limitation of the straight forward count, is that it doesn't allow you to associate data with other columnts.  To further assist in data analysis, we can employ the <code>group by</code> clause. 
 <br /> <br />
-This addition allows us to "group" aggregate function results together based on values in a column. 
-<br /><code>select count(*) from students</code>
-<br /><code>select count(*) from students where fname like 'S%'</code>
+This will allow us to not just select the count, but other columns as well.  For instance, try finding the count of course registrations based on semester below
+<br /><code>select semester,count(*) from course_fcts group by semester</code>
 <br / > 
+It is important to note, that for each column in your select statement, you must include that column in the group by clause. 
 </p>
