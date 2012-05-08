@@ -25,6 +25,10 @@ Sqlcons.create(ch: 3,sec: 4,regtext: '(update)(.*?)(courses)( )+(set)|(select)(.
 
 #Chapter 4
 Sqlcons.create(ch: 4,sec: 1,regtext: '(select)(.*?)(count)');
+Sqlcons.create(ch: 4,sec: 2,regtext: '(select)(.*?)(group by)');
+Sqlcons.create(ch: 4,sec: 3,regtext: '(select)(.*?)(having)');
+Sqlcons.create(ch: 4,sec: 4,regtext: '(select)(.*?)(max|min)');
+Sqlcons.create(ch: 4,sec: 5,regtext: '(select)(.*?)(sum)');
 
 #Chapter description for each chapter.
 Chapters.create( title:'Select' , description:'The most basic forms of querying a database', maxlesson:7);

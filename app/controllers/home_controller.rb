@@ -15,7 +15,7 @@ class HomeController < ApplicationController
   def jump_to_lesson
 	chapter = params[:id]
 	#Initialize session variables before we direct to that chapter
-  	session[:maxsec]  = Chapters.select(:maxlesson).where("id = #{chapter}").first.maxlesson	
+  	session[:maxsec]  = Sqlcons.maximum(:sec, :conditions => "ch = #{chapter}")#.where("ch = #{chapter}")	
   	session[:maxch]   = Chapters.maximum(:id)
   	session[:tutch]   = chapter.to_i 
 	session[:tutsec]  = 0 
