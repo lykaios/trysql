@@ -9,6 +9,7 @@ class SqlconsController < ApplicationController
     session[:maxsec]  = Sqlcons.maximum(:sec, :conditions => "ch = 1")	
     session[:tutch]   = 1
     session[:tutsec]  = 1  
+    pickdisplay
     render :index  
   end
 

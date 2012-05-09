@@ -1,24 +1,26 @@
 <div class="container-fluid">
 <div class="span6">
 <body>
-<h2>Welcome to TrySQL!</h2>
+<h3>Welcome to TrySQL!</h3>
   <p>
-  Just by arriving at this page, you've begun your first step on the road to database mastery.  The goal of this website is to take you through some basic tutorials, giving you a general feel of how Structured Query Language works.  The scope of this tutorial is to familiarize you with the language and specifc methods of querying, if you need an overview of databasing, I recommend you go  
+  Just by arriving at this page, you've begun your first step on the road to query mastery.  The goal of this website is to take you through some basic tutorials, giving you a general feel of how Structured Query Language works.  The scope of this tutorial is to familiarize you with the language and specifc methods of querying, if you need an overview of databasing, I recommend you go  
   <%= link_to("here.", 'http://code.google.com/edu/tools101/mysql.html')%> 
   <br />
   <br />
-	The tutorial will allow you to interact with a database by writing SQL statements to it.  Click the "querydb" button to submit your statement to the database.  The results (or an error message) will display back to your screen.  Once you are ready for the next lesson, simply hit the "Next Section" link.
+  The tutorial will allow you to interact with a database by writing SQL statements to it.  Click the "QueryDB" button to submit your statement to the database.  The results (or an error message) will display back to your screen.  Once you are ready for the next lesson, simply hit the "Next Lesson" button.
   <br />
   <br />
-	To start, let's write a simple select query against the database.  Try <code>"select * from courses"</code> below.
+  To start, let's write a simple select query against the database.  Try <code>"select * from courses"</code> below.
   </p>
- 
   <!--Text area for next query-->
   <%= form_tag(sqlcons_fetchquery_path, :method => "get") do %>
   <%= text_area_tag(:q, "", :size=>"90x3") %>
   <br />
-  <%= submit_tag("querydb", :onclick=>"this") %>
+  <%= submit_tag("QueryDB", :onclick=>"this") %>
   <% end %>
 </body>
+</div>
+<div class="span6">
+  <%= render :file => @help_name%>
 </div>
 </div>
