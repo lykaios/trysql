@@ -95,19 +95,19 @@ end
   #Used to control which rows a user can see. (Associated with their user id)
   def append_query(p_qstring)
     uid      = current_user.id.to_s
-   
+    ret_string = p_qstring 
     #If it is a join statement, need to include uid in "on" clause, 
     # else the results are not what user intended. 
     #We have to modify where we place 'where_clause' based on the incoming 
     # SQL statment. Otherwise we create a syntax error
-    if p_qstring =~ /(insert)/i
-	  ret_string = p_qstring.gsub /\)/, ', ' + uid + ') \2'
+    if ret_string =~ /(insert)/i
+	  ret_string = ret_string.gsub /\)/, ', ' + uid + ') \2'
     else
-	  tabname  = p_qstring[/(from)( )+([_a-z]+)( )*([_a-z]*)/, 3]
-	  tabalias = p_qstring[/(from)( )+([_a-z]+)( )+([_a-z]*)/, 5]
-	  if p_qstring =~ /(update)/i
-	    tabname  = p_qstring[/(update)( )+([_a-z]+)( )*([_a-z]*)/, 3]
-	    tabalias = p_qstring[/(update)( )+([_a-z]+)( )+([_a-z]*)/, 5]
+	  tabname  = ret_string[/(from)( )+([_a-z]+)( )*([_a-z]*)/, 3]
+	  tabalias = ret_string[/(from)( )+([_a-z]+)( )+([_a-z]*)/, 5]
+	  if ret_string =~ /(update)/i
+	    tabname  = ret_string[/(update)( )+([_a-z]+)( )*([_a-z]*)/, 3]
+	    tabalias = ret_string[/(update)( )+([_a-z]+)( )+([_a-z]*)/, 5]
 	  end
 	  if ( (tabalias == nil) || (tabalias =~ /(where|join|group|order|set)/)  )
 	    table_clause = tabname + '.uid = ' + uid
@@ -116,18 +116,20 @@ end
 	  end
 	  where_clause = ' where ' + table_clause
 
-	  if p_qstring =~ /(right)(.*?)(join)/i
-	    ret_string = p_qstring.gsub /(join)( )*([_a-z]+)( )+([_a-z]+)(.*?)(on)/i, '\1 \2 \3 \4 \5 \6 \7 \5.uid = ' + uid + ' and '
-	  elsif p_qstring =~ /(join)/i
-	    ret_string = p_qstring.gsub /(on)(.*?)([_a-z]*)\.([_a-z]*)(.*?)([_a-z]+)\.([_a-z]+)/i, '\1 \2\3.uid = \6.uid and \3.uid = '+uid+' and \3.\4 = \6.\7'
-	  elsif p_qstring =~ /(where)/i
-	    ret_string = p_qstring.gsub /(where)/i, where_clause + ' and '
-	  elsif p_qstring =~ /(group)/i
-	    ret_string = p_qstring.gsub /(group)/i, where_clause + ' group '
-	  elsif p_qstring =~ /(order)/i
-	    ret_string = p_qstring.gsub /(order)/i, where_clause + ' order '
+	  if ret_string =~ /(right)(.*?)(join)/i
+	    ret_string = ret_string.gsub /(join)( )*([_a-z]+)( )+([_a-z]+)(.*?)(on)/i, '\1 \2 \3 \4 \5 \6 \7 \5.uid = ' + uid + ' and '
+	  elsif ret_string =~ /(join)/i
+	    ret_string = ret_string.gsub /(on)(.*?)([_a-z]*)\.([_a-z]*)(.*?)([_a-z]+)\.([_a-z]+)/i, '\1\2\3.uid = \6.uid and \3.uid = '+ uid +' and \3.\4 = \6.\7'
+	  end
+
+	  if ret_string =~ /(where)/i
+	    ret_string = ret_string.gsub /(where)/i, where_clause + ' and '
+	  elsif ret_string =~ /(group)/i
+	    ret_string = ret_string.gsub /(group)/i, where_clause + ' group '
+	  elsif ret_string =~ /(order)/i
+	    ret_string = ret_string.gsub /(order)/i, where_clause + ' order '
 	  else
-	    ret_string = p_qstring + where_clause 
+	    ret_string = ret_string + where_clause 
 	  end
     end
     return ret_string
