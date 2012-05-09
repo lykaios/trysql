@@ -40,12 +40,13 @@ class SqlconsController < ApplicationController
   def nextlesson
 	cur_sec_max = Sqlcons.maximum(:sec, :conditions => "ch = " + session[:tutch].to_s)
 	app_ch_max = Chapters.maximum("id")
+	user_done = false
 	#If we haven't hit the last lesson in chapter, or last chapter of tutorial
 	# increment lesson. Otherwise on to the next chapter
 	if (session[:tutsec] < cur_sec_max) 
   	  session[:tutsec] += 1
   	elsif (session[:tutch] == app_ch_max)
-	  nil
+	  user_done = true
 	else 
 	  #Check if this chapter is higher than the users last completed
 	  cur_max = Userlesson.select(:completed_ch).where(:uid => current_user.id).first.completed_ch 
@@ -55,9 +56,13 @@ class SqlconsController < ApplicationController
 	end
 	@qstatus = 3 
   	@qresults = nil
-  	pickdisplay
-  	render :show
-  end
+  	if user_done
+		render :file => Rails.root + "app/views/sqlcons/tutorials/congratulations.html"
+	else
+		pickdisplay
+  		render :show
+	end  
+end
 
   #Define methods private to controller (all listed below)
   private
