@@ -15,7 +15,7 @@
  
   <!--Text area for next query-->
   <%= form_tag(sqlcons_fetchquery_path, :method => "get") do %>
-  <%= text_area_tag(:q,  "select * from courses",:size=>"90x3") %>
+  <%= text_area_tag(:q, "", :size=>"90x3") %>
   <br />
   <%= submit_tag("querydb", :onclick=>"this") %>
   <% end %>

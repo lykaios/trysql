@@ -6,7 +6,7 @@ class SqlconsController < ApplicationController
   # GET /sqlcons
   # GET /sqlcons.json
   def index
-    session[:maxsec]  = Sqlcons.maximum(:sec).where("ch = 1")	
+    session[:maxsec]  = Sqlcons.maximum(:sec, :conditions => "ch = 1")	
     session[:tutch]   = 1
     session[:tutsec]  = 1  
     render :index  
@@ -35,7 +35,7 @@ class SqlconsController < ApplicationController
     pickdisplay  
     render :show 
   end
-  
+  #TODO: Fix refresh bug where user can martch entirely through lesson. 
   #Increments session parameters if user wants to advance lesson.
   def nextlesson
     cur_sec_max = Sqlcons.maximum(:sec, :conditions => "ch = " + session[:tutch].to_s)
@@ -54,13 +54,13 @@ class SqlconsController < ApplicationController
       session[:tutch] += 1
       session[:tutsec] = 1
     end
-    @qstatus = 3 
-    @qresults = nil
     if user_done
-	    render :file => Rails.root + "app/views/sqlcons/tutorials/congratulations.html"
+      render :file => Rails.root + "app/views/sqlcons/tutorials/congratulations.html"
     else
-	    pickdisplay
-	    render :show
+      @qstatus = 3 
+      @qresults = nil
+      pickdisplay
+      render :show
     end  
 end
 
