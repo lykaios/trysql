@@ -75,10 +75,11 @@ end
       @qstring = append_query(@qstring) 
       @qresults = Dbq.execquery(@qstring)
     rescue Exception => e
-      #use replace function to clean up error
+      #use replace function to clean up error from database
       msg = e.message.gsub /'/, ''
       msg = msg.gsub /Mysql2::Error:(.*?)(:)(.*)/, '\1'
-      msg = msg.gsub /;.*/, ''
+      msg = msg.gsub /(;.*)|(trysql_data\.)/, ''
+      #msg = msg.gsub /trysql_data/, ''
       errquery = "select '"+ msg + "' as errormsg"
       @qresults = ActiveRecord::Base.connection.execute(errquery)
       #sql syntax exception key

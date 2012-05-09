@@ -1,5 +1,6 @@
-<h3> Ch1-2 </h3>
-<p> Great, now you have the basic idea of querying. Lets say we want to limit the data we return back.  For instance, pulling back all students whose id is less than 3.  Simply add a where clause like below 
+<h3> Ch1-2: Where</h3>
+<p> Great, now you have the basic idea of querying. Lets say we want to limit the data we return back.  For instance, pulling back all students whose id is less than 3.  Simply add a <code>where</code> clause like below 
 <br />
-<code>select * from students where id < 3</code> 
+<code>select * from students s where s.id < 3</code><br />
+Note: The letter "s" specified after the table name is known as an alias. Rather than type out students.id &lt; 3, we can alias the table as s, and reference it's columns with s. Although aliases aren't required they easily allow you to reference column names and reduce ambiguity in your queries.   
 </p>

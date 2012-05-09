@@ -1,5 +1,6 @@
-<h3> Ch1-4 </h3>
+<h3> Ch1-4: Where like </h3>
 <p>
-Wonderful! Our database will only return the row where the specified column = the specified value. If that row does not exist, then it will return no rows.  Another intresting aspect is the 'like' operator.  Imagine this a regular expression-ish pattern matcher.  Lets say we wanted to find all students whose name begins with T. 
-<br /><code>select * from students where fname like 'S%'</code>
+Another interesting aspect is the <code>like</code> operator.  Imagine this as a regular expression-ish pattern matcher.  Lets say we wanted to find all students whose name begins with S. 
+<br /><code>select * from students s where s.fname like 'S%'</code><br />
+Note: With the like operator, % is treated as a wildcard. 
 </p>
