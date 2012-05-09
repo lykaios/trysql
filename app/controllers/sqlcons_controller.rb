@@ -85,7 +85,10 @@ end
       #sql syntax exception key
       @qstatus = 1
     end
-	
+    #If there was no error on DDL statement want to display a success message back
+    if (@qstatus == 0 and @qstring =~ /(insert|update|delete)/i)
+      @qresults = ActiveRecord::Base.connection.execute("select 'Data manipulation success!' as DBMSG")
+    end	
   end
 
 

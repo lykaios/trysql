@@ -2,7 +2,7 @@
 <p>
 Alright! That covers the basics of inserting into the database.  Following a similar line of thinking, let us suppose we wanted to remove a course from our universities offering. First, let's see what courses are offered. 
 <br / >
-<code>select * from courses order by cnum</code>
+<code>select * from courses c order by c.cnum</code>
 <br / >
 Now let's remove the PHP course using a delete statement. This is equivilant to looking at that table, and removing all the rows that match the criteria in the where clause. In this case where cnum = 224
 <br / >
@@ -10,6 +10,6 @@ Now let's remove the PHP course using a delete statement. This is equivilant to 
 <br / > 
 Now let's check if that row was actually removed. 
 <br / >
-<code>select * from courses order by cnum</code>
+<code>select * from courses c order by c.cnum</code>
 <br / >
 </p>
