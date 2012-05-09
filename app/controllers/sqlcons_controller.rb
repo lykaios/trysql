@@ -31,13 +31,11 @@ class SqlconsController < ApplicationController
     else
       @qstatus = 2
     end
-
     #call method determining which errors to display, if any
     pickdisplay  
     render :show 
   end
-  #TODO: Fix refresh bug where user can martch entirely through lesson. 
-  #Increments session parameters if user wants to advance lesson.
+  
   def nextlesson
     cur_sec_max = Sqlcons.maximum(:sec, :conditions => "ch = " + session[:tutch].to_s)
     app_ch_max = Chapters.maximum("id")
@@ -47,12 +45,13 @@ class SqlconsController < ApplicationController
     if (session[:tutsec] < cur_sec_max) 
       session[:tutsec] += 1
     elsif (session[:tutch] == app_ch_max)
-      user_done = true
+      user_done = true if (session[:tutch] == app_ch_max)
     else 
       #Check if this chapter is higher than the users last completed
       cur_max = Userlesson.select(:completed_ch).where(:uid => current_user.id).first.completed_ch 
-      Userlesson.update(current_user.id, :completed_ch => session[:tutch]) if session[:tutch] > cur_max
       session[:tutch] += 1
+      #update so that they can jump to next possible chapter
+      Userlesson.update(current_user.id, :completed_ch => session[:tutch]) if session[:tutch] > cur_max
       session[:tutsec] = 1
     end
     if user_done
